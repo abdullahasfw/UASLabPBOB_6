@@ -1,6 +1,6 @@
 class Customer extends Akun {
-    public Customer(String nama, String password) {
-        super(nama, password);
+    public Customer(int id, String nama, String password) {
+        super(id, nama, password);
     }
 
     public void buatPesanan() {

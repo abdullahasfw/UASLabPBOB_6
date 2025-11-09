@@ -1,3 +1,4 @@
 public interface Pembayaran {
-  private int idPembayaran;
+  public void setID(int id);
+  public int getID();
 }

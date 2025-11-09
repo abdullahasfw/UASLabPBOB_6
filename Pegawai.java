@@ -1,8 +1,8 @@
 class Pegawai extends Akun {
     private String peran;
 
-    public Pegawai(String nama, String password, String peran) {
-        super(nama, password);
+    public Pegawai(int id, String nama, String password, String peran) {
+        super(id, nama, password);
         this.peran = peran;
     }
 

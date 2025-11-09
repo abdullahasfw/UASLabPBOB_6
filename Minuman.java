@@ -3,14 +3,13 @@ class Minuman extends MenuItem {
     private String suhu;
 
     public Minuman(String nama, double harga, String ukuran, String suhu) {
-        this.nama = nama;
-        this.harga = harga;
+        super(nama, harga);
         this.ukuran = ukuran;
         this.suhu = suhu;
     }
 
     @Override
     public String getInfo() {
-        return "Minuman: " + nama + ", Harga: " + harga + ", Ukuran: " + ukuran + ", Suhu: " + suhu;
+        return "Minuman: " + getNama() + ", Harga: " + getHarga() + ", Ukuran: " + ukuran + ", Suhu: " + suhu;
     }
 }
