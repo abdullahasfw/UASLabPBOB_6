@@ -1,12 +1,17 @@
 class Pegawai extends Akun {
     private String peran;
 
-    public Pegawai(String username, String password, String peran, int id) {
-        super(username, password, id);
+    public Pegawai(String nama, String password, String peran) {
+        super(nama, password);
         this.peran = peran;
     }
 
-    public void inputDataPesanan() {
-        System.out.println("Pegawai " + username + " memasukkan data pesanan.");
+    public void updateStatusPesanan() {
+        System.out.println("Status pesanan diperbarui oleh " + getNama());
+    }
+
+    @Override
+    public void tampilkanMenuAksi() {
+        System.out.println("Menu Pegawai ditampilkan.");
     }
 }
