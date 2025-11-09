@@ -1,8 +1,8 @@
 class Customer extends Akun {
     private List<Pesanan> riwayatPesanan = new ArrayList<>();
 
-    public Customer(String username, String password) {
-        super(username, password);
+    public Customer(int id, String nama, String password) {
+        super(id, nama, password);
     }
 
     public void tambahPesanan(Pesanan p) {
@@ -12,4 +12,3 @@ class Customer extends Akun {
     public List<Pesanan> getRiwayatPesanan() {
         return riwayatPesanan;
     }
-}
