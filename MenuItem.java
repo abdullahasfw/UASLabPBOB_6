@@ -1,6 +1,6 @@
 abstract class MenuItem {
-    protected String nama;
-    protected double harga;
+    private String nama;
+    private double harga;
 
     public abstract String getInfo();
 }
