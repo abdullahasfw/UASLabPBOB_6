@@ -1,14 +1,14 @@
 class Customer extends Akun {
-    private List<Pesanan> riwayatPesanan = new ArrayList<>();
-
-    public Customer(int id, String nama, String password) {
-        super(id, nama, password);
+    public Customer(String nama, String password) {
+        super(nama, password);
     }
 
-    public void tambahPesanan(Pesanan p) {
-        riwayatPesanan.add(p);
+    public void buatPesanan() {
+        System.out.println("Pesanan dibuat oleh " + getNama());
     }
 
-    public List<Pesanan> getRiwayatPesanan() {
-        return riwayatPesanan;
+    @Override
+    public void tampilkanMenuAksi() {
+        System.out.println("Menu Customer ditampilkan.");
     }
+}
