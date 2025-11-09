@@ -1,10 +1,10 @@
 public abstract class Akun {
-    private int id; 
+    private int id = 0; 
     private String nama;
     private String password;
 
-    public Akun(int id, String nama, String password) {
-        this.id = id;
+    public Akun(String nama, String password) {
+        id++;
         this.nama = nama;
         this.password = password;
     }
