@@ -21,5 +21,6 @@ public abstract class Akun {
     public String getNama() {
         return nama;
     }
+}
   
   
