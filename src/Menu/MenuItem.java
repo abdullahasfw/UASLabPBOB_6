@@ -1,3 +1,4 @@
+package src.Menu;
 abstract class MenuItem {
     private String nama;
     private double harga;

@@ -1,3 +1,4 @@
+package src.Akun;
 class Pegawai extends Akun {
     private String peran;
 

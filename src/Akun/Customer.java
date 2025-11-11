@@ -1,3 +1,4 @@
+package src.Akun;
 class Customer extends Akun {
     public Customer(int id, String nama, String password) {
         super(id, nama, password);

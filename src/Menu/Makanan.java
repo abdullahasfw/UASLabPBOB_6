@@ -1,3 +1,4 @@
+package src.Menu;
 class Makanan extends MenuItem {
     private int tingkatPedas;
     private String kategori;

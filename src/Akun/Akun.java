@@ -1,3 +1,4 @@
+package src.Akun;
 public abstract class Akun {
     private int id; 
     private String nama;
