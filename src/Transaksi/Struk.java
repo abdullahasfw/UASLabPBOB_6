@@ -1,3 +1,4 @@
+package src.Transaksi;
 public class Struk {
     
     public static void Cetak(Transaksi transaksi) {

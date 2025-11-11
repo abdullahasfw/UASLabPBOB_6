@@ -1,3 +1,6 @@
+package src.Transaksi;
+import src.Pembayaran.Pembayaran;
+
 public class Transaksi {
   private int idTransaksi;
   private Pesanan pesanan;
