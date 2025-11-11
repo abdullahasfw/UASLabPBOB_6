@@ -1,5 +1,5 @@
 package src.Menu;
-abstract class MenuItem {
+public abstract class MenuItem {
     private String nama;
     private double harga;
 
