@@ -1,5 +1,5 @@
 package src.Akun;
-public class Pegawai extends Akun {
+class Pegawai extends Akun {
     private String peran;
 
     public Pegawai(int id, String nama, String password, String peran) {

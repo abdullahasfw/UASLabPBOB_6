@@ -1,5 +1,5 @@
 package src.Menu;
-public class Makanan extends MenuItem {
+class Makanan extends MenuItem {
     private int tingkatPedas;
     private String kategori;
     

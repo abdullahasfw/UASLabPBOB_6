@@ -1,5 +1,5 @@
 package src.Menu;
-public class Minuman extends MenuItem {
+class Minuman extends MenuItem {
     private String ukuran;
     private String suhu;
 

@@ -1,5 +1,5 @@
 package src.Akun;
-public class Customer extends Akun {
+class Customer extends Akun {
     public Customer(int id, String nama, String password) {
         super(id, nama, password);
     }
