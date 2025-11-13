@@ -3,11 +3,11 @@ package database;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.util.*;
 
 public class DatabaseManager {
-    private static final String DB_FOLDER = "database";
+    private static final String DB_FOLDER = "../../database";
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     static {
@@ -19,11 +19,11 @@ public class DatabaseManager {
         try(FileWriter writer = new FileWriter(DB_FOLDER + "/" + fileName)) {
             gson.toJson(data, writer);
         } catch(IOException e) {
-            e.printStackTrace(null);
+            e.printStackTrace(System.out);
         }
     }
 
-    public static <T> void load(String fileName, Class<T> clazz) {
+    public static <T> List<T> load(String fileName, Class<T> clazz) {
         File file = new File(DB_FOLDER + "/" + fileName);
         if (!file.exists()) return new ArrayList<>();
 
@@ -34,5 +34,45 @@ public class DatabaseManager {
             e.printStackTrace();
             return new ArrayList<>();
         }
+    }
+
+     public static <T> void add(String fileName, Class<T> clazz, T newData) {
+        List<T> data = load(fileName, clazz);
+        data.add(newData);
+        save(fileName, data);
+    }
+
+    public static <T> void remove(String fileName, Class<T> clazz, int id) {
+        List<T> data = load(fileName, clazz);
+        data.removeIf(obj -> {
+            try {
+                Field idField = obj.getClass().getDeclaredField("id");
+                idField.setAccessible(true);
+                return idField.getInt(obj) == id;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
+        save(fileName, data);
+    }
+
+    public static <T> void update(String fileName, Class<T> clazz, int id, String fieldName, Object newValue) {
+        List<T> data = load(fileName, clazz);
+        for (T obj : data) {
+            try {
+                Field idField = obj.getClass().getDeclaredField("id");
+                idField.setAccessible(true);
+                if (idField.getInt(obj) == id) {
+                    Field field = obj.getClass().getDeclaredField(fieldName);
+                    field.setAccessible(true);
+                    field.set(obj, newValue);
+                    break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        save(fileName, data);
     }
 }
