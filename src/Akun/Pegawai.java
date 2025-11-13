@@ -1,6 +1,7 @@
 package src.Akun;
 public class Pegawai extends Akun {
     private String peran;
+    private boolean isOnline;
 
     public Pegawai(int id, String nama, String password, String peran) {
         super(id, nama, password);
@@ -14,5 +15,13 @@ public class Pegawai extends Akun {
     @Override
     public void tampilkanMenuAksi() {
         System.out.println("Menu Pegawai ditampilkan.");
+    }
+
+    public void setOnline(boolean online) {
+        isOnline = online;
+    }
+
+    public boolean getOnline() {
+        return isOnline;
     }
 }
