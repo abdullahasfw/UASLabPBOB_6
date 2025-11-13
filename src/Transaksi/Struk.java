@@ -2,7 +2,7 @@ package Transaksi;
 import Transaksi.Pesanan;
 public class Struk {
     
-    public static void Cetak(Transaksi transaksi) {
+    /*public static void Cetak(Transaksi transaksi) {
         Pesanan p = transaksi.getPesanan();
         
         System.out.println("\n==================================");
@@ -45,5 +45,5 @@ public class Struk {
         System.out.println("==================================");
         System.out.println("   Terima Kasih Atas Kunjungan Anda!");
         System.out.println("==================================");
-    }
+    }*/
 }
