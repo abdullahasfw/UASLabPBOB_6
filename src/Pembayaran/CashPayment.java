@@ -1,4 +1,4 @@
-package src.Pembayaran;
+package Pembayaran;
 public class CashPayment implements Pembayaran {
 
 }

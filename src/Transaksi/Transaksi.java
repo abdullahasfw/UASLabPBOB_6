@@ -1,5 +1,5 @@
-package src.Transaksi;
-import src.Pembayaran.Pembayaran;
+package Transaksi;
+import Pembayaran.Pembayaran;
 
 public class Transaksi {
   private int idTransaksi;
