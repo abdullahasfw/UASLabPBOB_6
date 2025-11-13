@@ -7,7 +7,7 @@ import java.lang.reflect.*;
 import java.util.*;
 
 public class DatabaseManager {
-    private static final String DB_FOLDER = "../../database";
+    private static final String DB_FOLDER = "database";
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     static {
