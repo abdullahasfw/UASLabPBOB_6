@@ -1,4 +1,4 @@
-package Pembayaran;
+package pembayaran;
 public class QRISPayment implements Pembayaran {
     private int id;
     public void setID(int id) {

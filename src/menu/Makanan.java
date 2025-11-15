@@ -1,4 +1,4 @@
-package Menu;
+package menu;
 public class Makanan extends MenuItem {
     private int tingkatPedas;
     private String kategori;

@@ -1,4 +1,4 @@
-package Akun;
+package akun;
 public class Pegawai extends Akun {
     private String peran;
     private boolean isOnline;

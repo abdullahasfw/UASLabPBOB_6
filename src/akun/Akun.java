@@ -1,4 +1,4 @@
-package Akun;
+package akun;
 public abstract class Akun {
     private int id; 
     private String nama;

@@ -1,5 +1,5 @@
-package Transaksi;
-import Menu.MenuItem;
+package transaksi;
+import menu.MenuItem;
 
 public class DetailPesanan {
     private MenuItem item;

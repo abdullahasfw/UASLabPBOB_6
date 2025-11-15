@@ -1,5 +1,5 @@
-package Pembayaran;
-public class CashPayment implements Pembayaran {
+package pembayaran;
+public class CardPayment implements Pembayaran {
     private int id;
     public void setID(int id) {
         this.id = id;

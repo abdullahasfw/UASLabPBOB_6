@@ -1,5 +1,5 @@
-package Transaksi;
-import Transaksi.Pesanan;
+package transaksi;
+import transaksi.Pesanan;
 public class Struk {
     
     /*public static void Cetak(Transaksi transaksi) {

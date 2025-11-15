@@ -1,4 +1,4 @@
-package Transaksi;
+package transaksi;
 public class Meja {
     private int nomor;
     private String status;
