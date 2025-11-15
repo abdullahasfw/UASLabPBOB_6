@@ -1,9 +1,9 @@
 package menu;
 public class Makanan extends MenuItem {
-    private int tingkatPedas;
+    private String tingkatPedas;
     private String kategori;
     
-    public Makanan(String nama, double harga, int tingkatPedas, String kategori) {
+    public Makanan(String nama, double harga, String tingkatPedas, String kategori) {
         super(nama, harga);
         this.tingkatPedas = tingkatPedas;
         this.kategori = kategori;
