@@ -18,28 +18,8 @@ public class Pesanan {
         this.totalHarga = 0.0;
     }
 
-
-    // Method untuk menambah item ke dalam list (Sesuai diagram komposisi)
-    public void tambahItem(DetailPesanan detail) {
-        daftarItem.add(detail);
-        // Update total harga langsung saat item ditambah
-        totalHarga += detail.getSubtotal(); 
-    }
-
     public void konfirmasiPesanan() {
         this.status = "Dikonfirmasi";
         System.out.println("Pesanan #" + idPesanan + " telah dikonfirmasi ke Dapur.");
-    }
-
-    public void tampilkanStruk() {
-        System.out.println("========= STRUK PESANAN #" + idPesanan + " =========");
-        System.out.println("Meja: " + meja.getNomorMeja());
-        System.out.println("----------------------------------------------");
-        for (DetailPesanan dp : daftarItem) {
-            System.out.println(dp.getInfo());
-        }
-        System.out.println("----------------------------------------------");
-        System.out.println("TOTAL HARGA \t: Rp " + totalHarga);
-        System.out.println("==============================================");
     }
 }
