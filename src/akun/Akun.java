@@ -1,6 +1,9 @@
 package akun;
+
+import sistem.RestaurantSystem;
+
 public abstract class Akun {
-    private int id; 
+    private int id;
     private String nama;
     private String password;
 
@@ -9,7 +12,8 @@ public abstract class Akun {
         this.nama = nama;
         this.password = password;
     }
-    public abstract void tampilkanMenuAksi();
+
+    public abstract void tampilkanMenuAksi(RestaurantSystem system);
 
     public int getId() {
         return id;
@@ -23,6 +27,3 @@ public abstract class Akun {
         return nama;
     }
 }
-
-  
-  

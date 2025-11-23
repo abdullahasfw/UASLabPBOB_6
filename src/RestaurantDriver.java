@@ -2,6 +2,7 @@ import akun.*;
 import menu.*;
 import transaksi.*;
 import pembayaran.*;
+import sistem.RestaurantSystem;
 import database.DatabaseManager;
 
 public class RestaurantDriver {
@@ -32,6 +33,12 @@ public class RestaurantDriver {
         Customer coba = new Customer(1, "shara", "shara123");
         DatabaseManager.add("Customer.json", akun.Customer.class, coba);
 
+        System.out.println("\n--- SIMULASI APLIKASI ---");
 
+        // Inisialisasi Sistem
+        RestaurantSystem sistem = new RestaurantSystem();
+
+        // Customer melakukan aksi
+        coba.tampilkanMenuAksi(sistem);
     }
 }

@@ -1,4 +1,7 @@
 package akun;
+
+import sistem.RestaurantSystem;
+
 public class Pegawai extends Akun {
     private String peran;
     private boolean isOnline;
@@ -13,7 +16,7 @@ public class Pegawai extends Akun {
     }
 
     @Override
-    public void tampilkanMenuAksi() {
+    public void tampilkanMenuAksi(RestaurantSystem system) {
         System.out.println("Menu Pegawai ditampilkan.");
     }
 

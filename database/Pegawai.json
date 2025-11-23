@@ -40,5 +40,12 @@
     "id": 1,
     "nama": "dobleh",
     "password": "dobleh123"
+  },
+  {
+    "peran": "kasir",
+    "isOnline": false,
+    "id": 1,
+    "nama": "dobleh",
+    "password": "dobleh123"
   }
 ]
