@@ -8,4 +8,5 @@ public class Pesanan {
     private String status;
     private List<DetailPesanan> daftarItem = new ArrayList<>();
     private Meja meja;
+    private double totalHarga;
 }

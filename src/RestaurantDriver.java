@@ -6,8 +6,6 @@ import database.DatabaseManager;
 
 public class RestaurantDriver {
     public static void main(String[] args) {
-        Pegawai tes = new Pegawai(1, "dobleh", "dobleh123", "kasir");
-        DatabaseManager.add("Pegawai.json", akun.Pegawai.class, tes);
 
         System.out.println("ini adalah");
 
@@ -31,6 +29,9 @@ public class RestaurantDriver {
 
         Customer coba = new Customer(1, "shara", "shara123");
         DatabaseManager.add("Customer.json", akun.Customer.class, coba);
+
+        // new CardPayment(1, 1234567);
+        // coba.bayarCard(21000);
 
 
     }
