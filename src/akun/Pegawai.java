@@ -4,9 +4,11 @@ import sistem.RestaurantSystem;
 
 public class Pegawai extends Akun {
     private boolean isOnline;
+    private String peran;
 
-    public Pegawai(int id, String nama, String password) {
+    public Pegawai(int id, String nama, String password, String peran) {
         super(id, nama, password);
+        this.peran = peran;
     }
 
     public void updateStatusPesanan() {
