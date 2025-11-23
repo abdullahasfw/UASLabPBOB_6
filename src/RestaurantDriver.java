@@ -2,10 +2,12 @@ import akun.*;
 import menu.*;
 import transaksi.*;
 import pembayaran.*;
+import ui.*;
 import database.DatabaseManager;
 
 public class RestaurantDriver {
     public static void main(String[] args) {
+        new Home();
         Pegawai tes = new Pegawai(1, "dobleh", "dobleh123", "kasir");
         DatabaseManager.add("Pegawai.json", akun.Pegawai.class, tes);
 
