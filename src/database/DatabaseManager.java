@@ -39,24 +39,38 @@ public static <T> void add(String fileName, Class<T> clazz, T newData) {
     List<T> data = load(fileName, clazz);
 
     try {
-        // ========== CASE 1: CUSTOMER / PEGAWAI (cek ID saja) ==========
-        if (clazz.getSimpleName().equals("Customer") ||
-            clazz.getSimpleName().equals("Pegawai")) {
+        // ========== CASE 1: CUSTOMER / PEGAWAI (cek ID) ==========
+if (clazz.getSimpleName().equals("Customer") ||
+    clazz.getSimpleName().equals("Pegawai")) {
 
-            Field idField = clazz.getDeclaredField("id");
+    Field idField = null;
+    Class<?> current = clazz;
+
+    while (current != null) {
+        try {
+            idField = current.getDeclaredField("id");
             idField.setAccessible(true);
-            int newId = idField.getInt(newData);
-
-            for (T obj : data) {
-                int existingId = idField.getInt(obj);
-
-                if (existingId == newId) {
-                    System.out.println("GAGAL: ID " + newId + " sudah ada!");
-                    return;
-                }
-            }
+            break;
+        } catch (NoSuchFieldException e) {
+            current = current.getSuperclass();
         }
+    }
 
+    if (idField == null) {
+        System.out.println("ERROR: Field 'id' tidak ditemukan pada class " + clazz.getSimpleName());
+    }
+
+    int newId = idField.getInt(newData);
+
+    for (T obj : data) {
+        int existingId = idField.getInt(obj);
+
+        if (existingId == newId) {
+            System.out.println("GAGAL: ID " + newId + " sudah ada!");
+            return;
+        }
+    }
+}
         // ========== CASE 2: MENU (Makanan / Minuman → cek semua field) ==========
         else if (clazz.getSuperclass().getSimpleName().equals("MenuItem")) {
 
