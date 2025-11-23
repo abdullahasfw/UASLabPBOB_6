@@ -4,7 +4,7 @@ import static akun.Pegawai.PERAN_VALID;
 public class Kasir extends Pegawai {
     
     public Kasir(int id, String nama, String password, String peran) {
-        super(id, nama, password, peran);
+        super(id, nama, password, "kasir");
         if (!isPeranValid(peran)) {
             throw new IllegalArgumentException("Peran'" + peran + "' tidak valid!");
         }
