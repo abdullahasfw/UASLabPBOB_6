@@ -2,10 +2,21 @@ import akun.*;
 import menu.*;
 import transaksi.*;
 import pembayaran.*;
+
+import sistem.RestaurantSystem;
+
+import ui.*;
+
 import database.DatabaseManager;
 
 public class RestaurantDriver {
     public static void main(String[] args) {
+
+
+        new Home();
+        Pegawai tes = new Pegawai(1, "dobleh", "dobleh123", "kasir");
+        DatabaseManager.add("Pegawai.json", akun.Pegawai.class, tes);
+
 
         System.out.println("ini adalah");
 
@@ -30,9 +41,18 @@ public class RestaurantDriver {
         Customer coba = new Customer(1, "shara", "shara123");
         DatabaseManager.add("Customer.json", akun.Customer.class, coba);
 
+
         // new CardPayment(1, 1234567);
         // coba.bayarCard(21000);
 
 
+        System.out.println("\n--- SIMULASI APLIKASI ---");
+
+
+        // Inisialisasi Sistem
+        RestaurantSystem sistem = new RestaurantSystem();
+
+        // Customer melakukan aksi
+        coba.tampilkanMenuAksi(sistem);
     }
 }
