@@ -7,7 +7,7 @@ public class Pegawai extends Akun {
     private String peran;
 
     // daftar peran valid
-    private static final String[] PERAN_VALID = {"kasir", "koki", "pelayan"};
+    public static final String[] PERAN_VALID = {"kasir", "koki", "pelayan"};
 
     public Pegawai(int id, String nama, String password, String peran) {
         super(id, nama, password);
