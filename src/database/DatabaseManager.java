@@ -35,12 +35,80 @@ public class DatabaseManager {
             return new ArrayList<>();
         }
     }
+public static <T> void add(String fileName, Class<T> clazz, T newData) {
+    List<T> data = load(fileName, clazz);
 
-     public static <T> void add(String fileName, Class<T> clazz, T newData) {
-        List<T> data = load(fileName, clazz);
-        data.add(newData);
-        save(fileName, data);
+    try {
+        // ========== CASE 1: CUSTOMER / PEGAWAI (cek ID saja) ==========
+        if (clazz.getSimpleName().equals("Customer") ||
+            clazz.getSimpleName().equals("Pegawai")) {
+
+            Field idField = clazz.getDeclaredField("id");
+            idField.setAccessible(true);
+            int newId = idField.getInt(newData);
+
+            for (T obj : data) {
+                int existingId = idField.getInt(obj);
+
+                if (existingId == newId) {
+                    System.out.println("GAGAL: ID " + newId + " sudah ada!");
+                    return;
+                }
+            }
+        }
+
+        // ========== CASE 2: MENU (Makanan / Minuman → cek semua field) ==========
+        else if (clazz.getSuperclass().getSimpleName().equals("MenuItem")) {
+
+            for (T obj : data) {
+
+                boolean isDuplicate = true;
+
+                // Cek field dari superclass (nama, harga)
+                for (Field field : clazz.getSuperclass().getDeclaredFields()) {
+                    field.setAccessible(true);
+
+                    Object newVal = field.get(newData);
+                    Object oldVal = field.get(obj);
+
+                    if (!Objects.equals(newVal, oldVal)) {
+                        isDuplicate = false;
+                        break;
+                    }
+                }
+
+                // Cek field subclass (tingkatPedas, kategori / ukuran, suhu)
+                if (isDuplicate) {
+                    for (Field field : clazz.getDeclaredFields()) {
+                        field.setAccessible(true);
+
+                        Object newVal = field.get(newData);
+                        Object oldVal = field.get(obj);
+
+                        if (!Objects.equals(newVal, oldVal)) {
+                            isDuplicate = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (isDuplicate) {
+                    System.out.println("GAGAL: Menu yang sama sudah ada!");
+                    return;
+                }
+            }
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+
+    data.add(newData);
+    save(fileName, data);
+    System.out.println("Berhasil menambah data ke " + fileName);
+}
+
+
 
     public static <T> void remove(String fileName, Class<T> clazz, int id) {
         List<T> data = load(fileName, clazz);

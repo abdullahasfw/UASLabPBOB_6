@@ -20,13 +20,13 @@ public class RestaurantDriver {
 
         System.out.println("ini adalah");
 
-        Makanan mk1 = new Makanan("nasi goreng", 10000, "1 - 5", "Makanan");
+        Makanan mk1 = new Makanan("nasi goreng", 10000, "1 - 5", "berat, gurih");
         DatabaseManager.add("MenuMakanan.json", menu.Makanan.class, mk1);
 
-        Makanan mk2 = new Makanan("mie goreng kuah", 10000, "1 - 5", "Makanan");
+        Makanan mk2 = new Makanan("mie goreng kuah", 10000, "1 - 5", "berat, gurih");
         DatabaseManager.add("MenuMakanan.json", menu.Makanan.class, mk2);
 
-        Makanan mk3 = new Makanan("mie goreng kering", 10000, "1 - 5", "Makanan");
+        Makanan mk3 = new Makanan("mie goreng kering", 10000, "1 - 5", "berat, gurih");
         DatabaseManager.add("MenuMakanan.json", menu.Makanan.class, mk3);
 
         Minuman mn1 = new Minuman("jus", 6000, "sedang", "dingin/sedang");
