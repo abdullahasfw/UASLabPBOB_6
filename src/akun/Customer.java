@@ -7,6 +7,10 @@ public class Customer extends Akun {
         super(id, nama, password);
     }
 
+    public void pilihMeja(){
+        System.out.println("Meja atas nama: " + getNama() + "\nid: " + getId());
+    }
+
     public void buatPesanan() {
         System.out.println("Pesanan dibuat oleh " + getNama());
     }
