@@ -1,6 +1,6 @@
 package ui;
 
-import java.swing.*;
+import javax.swing.*;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
