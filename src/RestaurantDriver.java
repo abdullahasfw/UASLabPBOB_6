@@ -14,7 +14,7 @@ public class RestaurantDriver {
 
 
         new Home();
-        Pegawai tes = new Pegawai(1, "dobleh", "dobleh123", "kasir");
+        Pegawai tes = new Pegawai(1, "dobleh", "dobleh123");
         DatabaseManager.add("Pegawai.json", akun.Pegawai.class, tes);
 
 
