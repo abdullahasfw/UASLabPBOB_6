@@ -16,5 +16,41 @@
     "suhu": "panas/dingin",
     "nama": "kopi",
     "harga": 8000.0
+  },
+  {
+    "ukuran": "sedang",
+    "suhu": "dingin/sedang",
+    "nama": "jus",
+    "harga": 6000.0
+  },
+  {
+    "ukuran": "sedang",
+    "suhu": "panas/hangat",
+    "nama": "teh",
+    "harga": 5000.0
+  },
+  {
+    "ukuran": "sedang",
+    "suhu": "panas/dingin",
+    "nama": "kopi",
+    "harga": 8000.0
+  },
+  {
+    "ukuran": "sedang",
+    "suhu": "dingin/sedang",
+    "nama": "jus",
+    "harga": 6000.0
+  },
+  {
+    "ukuran": "sedang",
+    "suhu": "panas/hangat",
+    "nama": "teh",
+    "harga": 5000.0
+  },
+  {
+    "ukuran": "sedang",
+    "suhu": "panas/dingin",
+    "nama": "kopi",
+    "harga": 8000.0
   }
 ]

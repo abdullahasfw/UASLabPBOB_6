@@ -31,7 +31,8 @@ public class RestaurantDriver {
         Minuman mn3 = new Minuman("kopi", 8000, "sedang", "panas/dingin");
         DatabaseManager.add("MenuMinuman.json", menu.Minuman.class, mn3);
 
-
+        Customer coba = new Customer(1, "shara", "shara123");
+        DatabaseManager.add("Customer.json", akun.Customer.class, coba);
 
 
     }

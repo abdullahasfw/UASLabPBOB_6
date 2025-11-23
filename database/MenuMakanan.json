@@ -22,5 +22,41 @@
     "kategori": "Makanan",
     "nama": "mie goreng kering",
     "harga": 10000.0
+  },
+  {
+    "tingkatPedas": "1 - 5",
+    "kategori": "Makanan",
+    "nama": "nasi goreng",
+    "harga": 10000.0
+  },
+  {
+    "tingkatPedas": "1 - 5",
+    "kategori": "Makanan",
+    "nama": "mie goreng kuah",
+    "harga": 10000.0
+  },
+  {
+    "tingkatPedas": "1 - 5",
+    "kategori": "Makanan",
+    "nama": "mie goreng kering",
+    "harga": 10000.0
+  },
+  {
+    "tingkatPedas": "1 - 5",
+    "kategori": "Makanan",
+    "nama": "nasi goreng",
+    "harga": 10000.0
+  },
+  {
+    "tingkatPedas": "1 - 5",
+    "kategori": "Makanan",
+    "nama": "mie goreng kuah",
+    "harga": 10000.0
+  },
+  {
+    "tingkatPedas": "1 - 5",
+    "kategori": "Makanan",
+    "nama": "mie goreng kering",
+    "harga": 10000.0
   }
 ]
