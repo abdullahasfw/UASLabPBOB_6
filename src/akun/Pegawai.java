@@ -8,7 +8,7 @@ public class Pegawai extends Akun {
 
     public Pegawai(int id, String nama, String password) {
         super(id, nama, password);
-        this.peran = peran;
+        
     }
 
     public void updateStatusPesanan() {
