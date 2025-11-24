@@ -2,6 +2,9 @@ package database;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+
+import transaksi.Meja;
+
 import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
@@ -113,9 +116,24 @@ if (clazz.getSimpleName().equals("Customer") ||
             }
         }
 
+        // ========== CASE 3: MEJA (cek nomor meja saja) ========== 
+        else if (clazz.getSimpleName().equals("Meja")) {
+
+            Meja newMeja = (Meja) newData;
+
+            for (T obj : data) {
+                Meja existing = (Meja) obj;
+                if (existing.getNomor() == newMeja.getNomor()) {
+                    System.out.println("GAGAL: Meja nomor " + newMeja.getNomor() + " sudah ada!");
+                    return;
+                }
+            }
+        }
+
     } catch (Exception e) {
         e.printStackTrace();
     }
+    
 
     data.add(newData);
     save(fileName, data);

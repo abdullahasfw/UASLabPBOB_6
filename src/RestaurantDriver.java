@@ -54,5 +54,23 @@ public class RestaurantDriver {
         coba.tampilkanMenuAksi(sistem);
         sistem.mulaiPesanan(coba, new Meja(1, "Tersedia"));
         sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
-    }
+    
+
+    Meja meja1 = new Meja (1, "tersedia");
+    DatabaseManager.add("Meja.json", transaksi.Meja.class, meja1);
+
+    Meja meja2 = new Meja (2, "tersedia");
+    DatabaseManager.add("Meja.json", transaksi.Meja.class, meja2);
+
+    Meja meja3 = new Meja (3, "tersedia");
+    DatabaseManager.add("Meja.json", transaksi.Meja.class, meja3);
+
+    Meja meja4 = new Meja (4, "tersedia");
+    DatabaseManager.add("Meja.json", transaksi.Meja.class, meja4);
+
+    Meja meja5 = new Meja (5, "tersedia");
+    DatabaseManager.add("Meja.json", transaksi.Meja.class, meja5);
+
+
+}
 }
