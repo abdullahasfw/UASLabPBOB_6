@@ -39,24 +39,7 @@ public class RestaurantDriver {
         Customer coba = new Customer(1, "shara", "shara123");
         DatabaseManager.add("Customer.json", akun.Customer.class, coba);
 
-
-        // new CardPayment(1, 1234567);
-        // coba.bayarCard(21000);
-
-
-        System.out.println("\n--- SIMULASI APLIKASI ---");
-
-
-        // Inisialisasi Sistem
-        RestaurantSystem sistem = new RestaurantSystem();
-
-        // Customer melakukan aksi
-        coba.tampilkanMenuAksi(sistem);
-        sistem.mulaiPesanan(coba, new Meja(1, "Tersedia"));
-        sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
-    
-
-    Meja meja1 = new Meja (1, "tersedia");
+        Meja meja1 = new Meja (1, "tersedia");
     DatabaseManager.add("Meja.json", transaksi.Meja.class, meja1);
 
     Meja meja2 = new Meja (2, "tersedia");
@@ -70,6 +53,24 @@ public class RestaurantDriver {
 
     Meja meja5 = new Meja (5, "tersedia");
     DatabaseManager.add("Meja.json", transaksi.Meja.class, meja5);
+
+
+        // new CardPayment(1, 1234567);
+        // coba.bayarCard(21000);
+
+
+        System.out.println("\n--- SIMULASI APLIKASI ---");
+
+
+        // Inisialisasi Sistem
+        RestaurantSystem sistem = new RestaurantSystem();
+
+        // Customer melakukan aksi
+        coba.tampilkanMenuAksi(sistem);
+        sistem.tampilkanDaftarMeja();
+        sistem.mulaiPesanan(coba, meja1);
+        sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
+        sistem.tampilkanDaftarMeja();
 
 
 }

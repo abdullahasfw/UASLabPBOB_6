@@ -46,14 +46,32 @@ public class RestaurantSystem {
                 System.out.println(m.getInfo());
             }
         }
+
+        
+
         System.out.println("\n========================================");
     }
+
+     public void tampilkanDaftarMeja() {
+
+        System.out.println("========================================");
+        System.out.println("          DAFTAR MEJA RESTORAN          ");
+        System.out.println("========================================");
+
+        List<Meja> semuaMeja = DatabaseManager.load("Meja.json", Meja.class);
+        System.out.println("Daftar Meja:");
+
+        for (Meja m : semuaMeja) {
+        System.out.println("Meja #" + m.getNomor() + " - Status: " + m.getStatus());
+        System.out.println("=========================================");
+       }
+}
 
     private int generateIdPesanan() {
     return idPesananCounter++;
     }
 
-     public void mulaiPesanan(Customer customer, Meja meja) {
+    public void mulaiPesanan(Customer customer, Meja meja) {
 
         if (pesananAktif.containsKey(customer.getId())) {
             System.out.println("Customer ini sudah memiliki pesanan aktif!");
