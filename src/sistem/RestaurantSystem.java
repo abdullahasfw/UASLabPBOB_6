@@ -128,6 +128,21 @@ public class RestaurantSystem {
                 + customer.getNama());
     }
 
+    public void konfirmasiPesanan(Customer customer) {
+    // 1. Ambil pesanan
+    Pesanan p = pesananAktif.get(customer.getId());
+
+    if (p == null) {
+        System.out.println("Tidak ada pesanan untuk dikonfirmasi.");
+        return;
+    }
+
+    // 2. Simpan ke Database (File JSON)
+    DatabaseManager.add("DataPesanan.json", Pesanan.class, p);
+
+    System.out.println("Pesanan berhasil dikonfirmasi dan masuk ke dapur!");
+
+    }
     public boolean updateStatusMeja(int nomorMeja, String statusBaru) {
         // 1. Load semua data meja dari file JSON
         List<transaksi.Meja> semuaMeja = DatabaseManager.load("Meja.json", transaksi.Meja.class);
