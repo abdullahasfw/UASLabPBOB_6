@@ -18,5 +18,16 @@ public class DetailPesanan {
     public double getSubTotal() {
         return subTotal;
     }
+    public MenuItem getItem() {
+    return item;
+}
+
+public int getJumlah() {
+    return jumlah;
+}
+
+public String getCatatan() {
+    return catatan;
+}
 }
 

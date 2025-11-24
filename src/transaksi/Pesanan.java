@@ -22,6 +22,21 @@ public class Pesanan {
 
         this.totalHarga += dp.getSubTotal();
     }
+    public int getIdPesanan() {
+    return idPesanan;
+}
+
+public Meja getMeja() {
+    return meja;
+}
+
+public List<DetailPesanan> getDaftarItem() {
+    return daftarItem;
+}
+
+public double getTotalHarga() {
+    return totalHarga;
+}
 
 
     // public void konfirmasiPesanan() {
