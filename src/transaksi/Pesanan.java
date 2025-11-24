@@ -42,17 +42,7 @@ public List<DetailPesanan> getDaftarItem() {
     return daftarItem;
 }
 
-public double getTotalHarga() {
-    return totalHarga;
-}
 
-    public List<DetailPesanan> getDaftarItem() {
-    return daftarItem;
-    }
-
-    public Meja getMeja() {
-        return meja;
-    }
 
     
 

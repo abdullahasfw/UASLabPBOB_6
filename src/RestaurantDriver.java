@@ -76,13 +76,14 @@ public class RestaurantDriver {
         sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
         sistem.tambahItemKePesanan(coba1, mk1, 2, "pedas 3");
         sistem.tambahItemKePesanan(coba1, mk3, 2, "pedas 5");
+        sistem.tambahItemKePesanan(coba, mk2, 2, "pedas 1");
+        sistem.konfirmasiPesanan(coba);
+        sistem.konfirmasiPesanan(coba1);
         sistem.tampilkanDaftarMeja();
         sistem.tampilkanPesananCS(coba1);
         sistem.tampilkanPesananCS(coba);
         sistem.tampilkanSemuaPesanan();
-         sistem.tambahItemKePesanan(coba, mk2, 2, "pedas 1");
         sistem.tampilkanDaftarMeja();
-        sistem.konfirmasiPesanan(coba);
 
     }
 }
