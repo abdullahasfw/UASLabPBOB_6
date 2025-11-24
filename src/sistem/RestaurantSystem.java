@@ -78,10 +78,24 @@ public class RestaurantSystem {
             return;
         }
 
+        if (meja.getStatus().equalsIgnoreCase("terisi")) {
+             System.out.println("Meja #" + meja.getNomor() + " sudah terisi. Gagal memulai pesanan.");
+             return;
+        }
+
         Pesanan baru = new Pesanan(generateIdPesanan(), meja);
         pesananAktif.put(customer.getId(), baru);
 
         System.out.println("Pesanan baru dibuat untuk customer: " + customer.getNama());
+
+        boolean statusUpdated = this.updateStatusMeja(meja.getNomor(), "Terisi");
+
+        if (statusUpdated) {
+            // Update status objek 'meja' di memori
+            meja.setStatus("Terisi"); 
+        } else {
+            System.err.println("PERINGATAN: Gagal memperbarui status Meja #" + meja.getNomor() + " di database.");
+        }
     }
 
     public void tambahItemKePesanan(Customer customer, MenuItem item, int jumlah, String catatan) {
