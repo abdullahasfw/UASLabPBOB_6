@@ -21,7 +21,7 @@ public class RestaurantSystem {
         System.out.println("========================================");
 
         // --- BAGIAN 1: LOAD MAKANAN ---
-        // Menggunakan method .load() milik DatabaseManager Anda
+        // Menggunakan method .load() milik DatabaseManager 
         List<Makanan> daftarMakanan = DatabaseManager.load("MenuMakanan.json", Makanan.class);
 
         System.out.println("\n--- [ MAKANAN ] ---");
@@ -116,7 +116,6 @@ public class RestaurantSystem {
 
     public boolean updateStatusMeja(int nomorMeja, String statusBaru) {
         // 1. Load semua data meja dari file JSON
-        // Asumsi Meja.class ada di package transaksi, sesuaikan jika berbeda
         List<transaksi.Meja> semuaMeja = DatabaseManager.load("Meja.json", transaksi.Meja.class);
         boolean mejaDitemukan = false;
 
