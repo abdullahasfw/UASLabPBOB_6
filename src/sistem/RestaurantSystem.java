@@ -78,11 +78,24 @@ public class RestaurantSystem {
             return;
         }
 
-        if (meja.getStatus().equalsIgnoreCase("terisi")) {
-             System.out.println("Meja #" + meja.getNomor() + " sudah terisi. Gagal memulai pesanan.");
-             return;
-
+        List<Meja> semuaMeja = DatabaseManager.load("Meja.json", Meja.class);
+    Meja mejaDariDB = null;
+    for (Meja m : semuaMeja) {
+        if (m.getNomor() == meja.getNomor()) {
+            mejaDariDB = m;
+            break;
         }
+    }
+
+    if (mejaDariDB == null) {
+        System.out.println("Meja tidak ditemukan di database!");
+        return;
+    }
+
+    if (mejaDariDB.getStatus().equalsIgnoreCase("Terisi")) {
+        System.out.println("Meja #" + mejaDariDB.getNomor() + " sudah terisi. Gagal memulai pesanan.");
+        return;
+    }
 
         Pesanan baru = new Pesanan(generateIdPesanan(), meja);
         pesananAktif.put(customer.getId(), baru);
