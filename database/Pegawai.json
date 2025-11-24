@@ -5,5 +5,19 @@
     "id": 1,
     "nama": "dobleh",
     "password": "dobleh123"
+  },
+  {
+    "isOnline": false,
+    "peran": "koki",
+    "id": 2,
+    "nama": "kokii",
+    "password": "koki123"
+  },
+  {
+    "isOnline": false,
+    "peran": "pelayan",
+    "id": 4,
+    "nama": "pel1",
+    "password": "pelayan123"
   }
 ]

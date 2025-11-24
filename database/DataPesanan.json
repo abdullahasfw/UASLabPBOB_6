@@ -1,0 +1,23 @@
+[
+  {
+    "idPesanan": 0,
+    "daftarItem": [
+      {
+        "item": {
+          "tingkatPedas": "1 - 5",
+          "kategori": "berat, gurih",
+          "nama": "mie goreng kering",
+          "harga": 10000.0
+        },
+        "jumlah": 2,
+        "catatan": "pedas 3",
+        "subTotal": 0.0
+      }
+    ],
+    "meja": {
+      "nomor": 1,
+      "status": "Terisi"
+    },
+    "totalHarga": 0.0
+  }
+]
