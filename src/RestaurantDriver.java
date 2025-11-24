@@ -3,7 +3,7 @@ import menu.*;
 import transaksi.*;
 import pembayaran.*;
 import sistem.RestaurantSystem;
-import ui.*;
+
 
 import database.DatabaseManager;
 
@@ -11,7 +11,6 @@ public class RestaurantDriver {
     public static void main(String[] args) {
 
 
-        new Home();
         Pegawai tes = new Pegawai(1, "dobleh", "dobleh123", "kasir");
         DatabaseManager.add("Pegawai.json", akun.Pegawai.class, tes);
 
@@ -76,10 +75,14 @@ public class RestaurantDriver {
         sistem.mulaiPesanan(coba1, meja4);
         sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
         sistem.tambahItemKePesanan(coba1, mk1, 2, "pedas 3");
-         sistem.tambahItemKePesanan(coba1, mk3, 2, "pedas 5");
+        sistem.tambahItemKePesanan(coba1, mk3, 2, "pedas 5");
         sistem.tampilkanDaftarMeja();
         sistem.tampilkanPesananCS(coba1);
         sistem.tampilkanPesananCS(coba);
         sistem.tampilkanSemuaPesanan();
-}
+         sistem.tambahItemKePesanan(coba, mk2, 2, "pedas 1");
+        sistem.tampilkanDaftarMeja();
+        sistem.konfirmasiPesanan(coba);
+
+    }
 }

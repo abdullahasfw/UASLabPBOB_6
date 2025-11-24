@@ -11,20 +11,24 @@ public class DetailPesanan {
     this.item = item;
     this.jumlah = jumlah;
     this.catatan = catatan;
+
+    this.subTotal = item.getHarga() * jumlah;
     }
+    
     public double getSubTotal() {
         double subTotal = item.getHarga() * jumlah;
         return subTotal;
     }
-    public String getCatatan() {
-        return catatan;
-    }
     public MenuItem getItem() {
-        return item;
-    }
-    public int getJumlah() {
-        return jumlah;
-    }
+    return item;
+}
 
+public int getJumlah() {
+    return jumlah;
+}
+
+public String getCatatan() {
+    return catatan;
+}
 }
 

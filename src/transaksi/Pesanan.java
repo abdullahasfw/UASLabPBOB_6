@@ -27,7 +27,24 @@ public class Pesanan {
 
     public void addDetail(DetailPesanan dp) {
         daftarItem.add(dp);
+
+        this.totalHarga += dp.getSubTotal();
     }
+    public int getIdPesanan() {
+    return idPesanan;
+}
+
+public Meja getMeja() {
+    return meja;
+}
+
+public List<DetailPesanan> getDaftarItem() {
+    return daftarItem;
+}
+
+public double getTotalHarga() {
+    return totalHarga;
+}
 
     public List<DetailPesanan> getDaftarItem() {
     return daftarItem;
