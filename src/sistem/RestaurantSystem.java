@@ -81,6 +81,7 @@ public class RestaurantSystem {
         if (meja.getStatus().equalsIgnoreCase("terisi")) {
              System.out.println("Meja #" + meja.getNomor() + " sudah terisi. Gagal memulai pesanan.");
              return;
+
         }
 
         Pesanan baru = new Pesanan(generateIdPesanan(), meja);

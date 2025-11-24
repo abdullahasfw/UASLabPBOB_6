@@ -69,6 +69,7 @@ public class RestaurantDriver {
         coba.tampilkanMenuAksi(sistem);
         sistem.tampilkanDaftarMeja();
         sistem.mulaiPesanan(coba, meja1);
+        sistem.mulaiPesanan(coba, meja1);
         sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
         sistem.tampilkanDaftarMeja();
 

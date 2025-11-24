@@ -1,5 +1,5 @@
 package akun;
-
+import sistem.RestaurantSystem;
 import static akun.Pegawai.PERAN_VALID;
 
 public class Pelayan extends Pegawai {
