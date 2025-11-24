@@ -20,4 +20,14 @@ public class Pelayan extends Pegawai {
         }
         return false;
     }
+
+    public void bersihkanMeja(RestaurantSystem sistem, int nomorMeja) {
+    // Memanggil method di kelas RestaurantSystem untuk eksekusi logika
+    boolean success = sistem.updateStatusMeja(nomorMeja, "tersedia"); // Ubah ke status awal
+    
+    if (success) {
+        System.out.println("Meja #" + nomorMeja + " telah siap digunakan kembali.");
+    } else {
+        System.out.println("Gagal mengosongkan Meja #" + nomorMeja + ".");
+    }
 }
