@@ -70,6 +70,7 @@ public class RestaurantDriver {
         sistem.mulaiPesanan(coba, meja1);
         sistem.mulaiPesanan(coba, meja1);
         sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
+         sistem.tambahItemKePesanan(coba, mk2, 2, "pedas 1");
         sistem.tampilkanDaftarMeja();
         sistem.konfirmasiPesanan(coba);
 

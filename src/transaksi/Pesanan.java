@@ -19,6 +19,8 @@ public class Pesanan {
 
     public void addDetail(DetailPesanan dp) {
         daftarItem.add(dp);
+
+        this.totalHarga += dp.getSubTotal();
     }
 
 
