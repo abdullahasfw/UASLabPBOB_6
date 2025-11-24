@@ -2,9 +2,7 @@ import akun.*;
 import menu.*;
 import transaksi.*;
 import pembayaran.*;
-
 import sistem.RestaurantSystem;
-
 import ui.*;
 
 import database.DatabaseManager;
@@ -54,5 +52,7 @@ public class RestaurantDriver {
 
         // Customer melakukan aksi
         coba.tampilkanMenuAksi(sistem);
+        sistem.mulaiPesanan(coba, new Meja(1, "Tersedia"));
+        sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
     }
 }
