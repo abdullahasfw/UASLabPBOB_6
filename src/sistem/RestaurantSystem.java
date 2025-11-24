@@ -1,10 +1,18 @@
 package sistem;
 
-import menu.*;      // Import class Makanan & Minuman
+import menu.*; 
+import akun.*;  
+import transaksi.*;
 import database.DatabaseManager;
+
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RestaurantSystem {
+    private Map<Integer, Pesanan> pesananAktif = new HashMap<>();
+    private int idPesananCounter = 0;
 
     // Method ini sesuai dengan diagram UML: +lihatMenu()
     public void lihatMenu() {
@@ -40,4 +48,38 @@ public class RestaurantSystem {
         }
         System.out.println("\n========================================");
     }
+
+    private int generateIdPesanan() {
+    return idPesananCounter++;
+    }
+
+     public void mulaiPesanan(Customer customer, Meja meja) {
+
+        if (pesananAktif.containsKey(customer.getId())) {
+            System.out.println("Customer ini sudah memiliki pesanan aktif!");
+            return;
+        }
+
+        Pesanan baru = new Pesanan(generateIdPesanan(), meja);
+        pesananAktif.put(customer.getId(), baru);
+
+        System.out.println("Pesanan baru dibuat untuk customer: " + customer.getNama());
+    }
+
+    public void tambahItemKePesanan(Customer customer, MenuItem item, int jumlah, String catatan) {
+
+        Pesanan p = pesananAktif.get(customer.getId());
+
+        if (p == null) {
+            System.out.println("Customer belum memiliki pesanan! Buat dulu.");
+            return;
+        }
+
+        DetailPesanan dp = new DetailPesanan(item, jumlah, catatan);
+        p.addDetail(dp);
+
+        System.out.println("Item \"" + item.getNama() + "\" ditambahkan ke pesanan customer "
+                + customer.getNama());
+    }
+
 } 

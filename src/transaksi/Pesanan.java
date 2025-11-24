@@ -14,20 +14,24 @@ public class Pesanan {
     public Pesanan(int idPesanan, Meja meja) {
         this.idPesanan = idPesanan;
         this.meja = meja;
-        this.totalHarga = hitungTotal();
-        this.status = "Draft"; // Status awal
-        this.daftarItem = new ArrayList<>();
-    }
-    public double hitungTotal() {
-    double total = 0;
-    for (DetailPesanan dp : daftarItem) {
-        total += dp.getSubTotal();
-    }
-    return total;
-}
 
-    public void konfirmasiPesanan() {
-        this.status = "Dikonfirmasi";
-        System.out.println("Pesanan #" + idPesanan + " telah dikonfirmasi ke Dapur.");
     }
+
+    public void addDetail(DetailPesanan dp) {
+        daftarItem.add(dp);
+    }
+
+
+    // public void konfirmasiPesanan() {
+    //     this.status = "Dikonfirmasi";
+    //     System.out.println("Pesanan #" + idPesanan + " telah dikonfirmasi ke Dapur.");
+    // }
+
+    //     public double hitungTotal() {
+//     double total = 0;
+//     for (DetailPesanan dp : daftarItem) {
+//         total += dp.getSubTotal();
+//     }
+//     return total;
+// }
 }

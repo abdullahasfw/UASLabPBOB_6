@@ -11,7 +11,6 @@ public class DetailPesanan {
     this.item = item;
     this.jumlah = jumlah;
     this.catatan = catatan;
-    this.subTotal = item.getHarga() * jumlah;
     }
     public double getSubTotal() {
         return subTotal;
