@@ -31,3 +31,4 @@ public class Pelayan extends Pegawai {
         System.out.println("Gagal mengosongkan Meja #" + nomorMeja + ".");
     }
 }
+}
