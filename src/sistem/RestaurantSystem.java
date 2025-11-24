@@ -128,6 +128,58 @@ public class RestaurantSystem {
                 + customer.getNama());
     }
 
+    public void tampilkanPesananCS(Customer customer) {
+
+    Pesanan p = pesananAktif.get(customer.getId());
+
+    if (p == null) {
+        System.out.println("Customer belum memiliki pesanan!");
+        return;
+    }
+
+    System.out.println("=== Daftar Pesanan Customer: " + customer.getNama() + " ===");
+
+    List<DetailPesanan> itemList = p.getDaftarItem();
+
+    if (itemList.isEmpty()) {
+        System.out.println("Belum ada item yang dipesan.");
+        return;
+    }
+
+    int i = 1;
+    for (DetailPesanan dp : itemList) {
+        System.out.println(i++ + ". " + dp.getItem().getNama()
+            + " | Jumlah: " + dp.getJumlah()
+            + " | Catatan: " + dp.getCatatan()
+            + " | Subtotal: " + dp.getSubTotal()
+        );
+    }
+}
+
+public void tampilkanSemuaPesanan() {
+    if (pesananAktif.isEmpty()) {
+        System.out.println("Belum ada pesanan aktif.");
+        return;
+    }
+
+    System.out.println("\n=== SEMUA PESANAN AKTIF ===");
+
+    for (Map.Entry<Integer, Pesanan> entry : pesananAktif.entrySet()) {
+        Pesanan p = entry.getValue();
+        System.out.println("\nCustomer ID: " + entry.getKey());
+        System.out.println("Meja: #" + p.getMeja().getNomor());
+        System.out.println("Item:");
+
+        int i = 1;
+        for (DetailPesanan dp : p.getDaftarItem()) {
+            System.out.println(" " + (i++) + ". " 
+                + dp.getItem().getNama()
+                + " x" + dp.getJumlah());
+        }
+        System.out.println("\n  Total Harga: " + p.getTotalHarga());
+    }
+}
+
     public boolean updateStatusMeja(int nomorMeja, String statusBaru) {
         // 1. Load semua data meja dari file JSON
         List<transaksi.Meja> semuaMeja = DatabaseManager.load("Meja.json", transaksi.Meja.class);

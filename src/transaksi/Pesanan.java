@@ -17,9 +17,28 @@ public class Pesanan {
 
     }
 
+    public double getTotalHarga() {
+        double totalHarga = 0;
+        for (DetailPesanan dp : daftarItem) {
+            totalHarga += dp.getSubTotal();
+        }
+        return totalHarga;
+    }
+
     public void addDetail(DetailPesanan dp) {
         daftarItem.add(dp);
     }
+
+    public List<DetailPesanan> getDaftarItem() {
+    return daftarItem;
+    }
+
+    public Meja getMeja() {
+        return meja;
+    }
+
+    
+
 
 
     // public void konfirmasiPesanan() {

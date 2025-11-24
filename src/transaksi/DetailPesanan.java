@@ -13,7 +13,18 @@ public class DetailPesanan {
     this.catatan = catatan;
     }
     public double getSubTotal() {
+        double subTotal = item.getHarga() * jumlah;
         return subTotal;
     }
+    public String getCatatan() {
+        return catatan;
+    }
+    public MenuItem getItem() {
+        return item;
+    }
+    public int getJumlah() {
+        return jumlah;
+    }
+
 }
 

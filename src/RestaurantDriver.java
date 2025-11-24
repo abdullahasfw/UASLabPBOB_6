@@ -39,6 +39,9 @@ public class RestaurantDriver {
         Customer coba = new Customer(1, "shara", "shara123");
         DatabaseManager.add("Customer.json", akun.Customer.class, coba);
 
+        Customer coba1 = new Customer(2, "syifa", "123");
+        DatabaseManager.add("Customer.json", akun.Customer.class, coba1);
+
         Meja meja1 = new Meja (1, "tersedia");
     DatabaseManager.add("Meja.json", transaksi.Meja.class, meja1);
 
@@ -69,10 +72,14 @@ public class RestaurantDriver {
         coba.tampilkanMenuAksi(sistem);
         sistem.tampilkanDaftarMeja();
         sistem.mulaiPesanan(coba, meja1);
-        sistem.mulaiPesanan(coba, meja1);
+        sistem.mulaiPesanan(coba1, meja1);
+        sistem.mulaiPesanan(coba1, meja4);
         sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
+        sistem.tambahItemKePesanan(coba1, mk1, 2, "pedas 3");
+         sistem.tambahItemKePesanan(coba1, mk3, 2, "pedas 5");
         sistem.tampilkanDaftarMeja();
-
-
+        sistem.tampilkanPesananCS(coba1);
+        sistem.tampilkanPesananCS(coba);
+        sistem.tampilkanSemuaPesanan();
 }
 }

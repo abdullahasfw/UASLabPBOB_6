@@ -3,5 +3,10 @@
     "id": 1,
     "nama": "shara",
     "password": "shara123"
+  },
+  {
+    "id": 2,
+    "nama": "syifa",
+    "password": "123"
   }
 ]
