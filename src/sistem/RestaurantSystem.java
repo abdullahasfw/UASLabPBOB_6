@@ -114,4 +114,35 @@ public class RestaurantSystem {
                 + customer.getNama());
     }
 
+    public boolean updateStatusMeja(int nomorMeja, String statusBaru) {
+        // 1. Load semua data meja dari file JSON
+        // Asumsi Meja.class ada di package transaksi, sesuaikan jika berbeda
+        List<transaksi.Meja> semuaMeja = DatabaseManager.load("Meja.json", transaksi.Meja.class);
+        boolean mejaDitemukan = false;
+
+        if (semuaMeja == null) {
+            System.out.println("Gagal memuat daftar meja dari database.");
+            return false;
+        }
+
+        // 2. Cari Meja berdasarkan nomor
+        for (transaksi.Meja m : semuaMeja) {
+            if (m.getNomor() == nomorMeja) {
+                // 3. Ubah status meja
+                m.setStatus(statusBaru); // Memerlukan method setStatus(String) di kelas Meja
+                mejaDitemukan = true;
+                break; 
+            }
+        }
+
+        if (mejaDitemukan) {
+            // 4. Simpan kembali (overwrite) seluruh daftar meja ke file JSON
+            DatabaseManager.save("Meja.json", semuaMeja);
+            // System.out.println("Status Meja #" + nomorMeja + " berhasil diubah menjadi: " + statusBaru);
+            return true;
+        } else {
+            // System.out.println("Meja dengan nomor " + nomorMeja + " tidak ditemukan.");
+            return false;
+        }
+    }
 } 
