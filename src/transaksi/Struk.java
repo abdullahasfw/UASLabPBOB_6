@@ -2,6 +2,11 @@ package transaksi;
 import transaksi.Pesanan;
 public class Struk {
     
+
+
+
+
+
     /*public static void Cetak(Transaksi transaksi) {
         Pesanan p = transaksi.getPesanan();
         
@@ -44,6 +49,6 @@ public class Struk {
         System.out.println("Metode Bayar: " + transaksi.getMetodePembayaran().getClass().getSimpleName());
         System.out.println("==================================");
         System.out.println("   Terima Kasih Atas Kunjungan Anda!");
-        System.out.println("==================================");
+        System.out.println("==================================");  :D
     }*/
 }
