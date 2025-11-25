@@ -25,4 +25,9 @@ public class CardPayment implements Pembayaran {
     public void bayar(double jumlah) {
         System.out.println("Card Payment sebesar " + jumlah + " berhasil dilakukan dengan ID: " + id + " dengan Nomor Kartu: " + nomorKartu);
     }
+
+    @Override
+    public void idPembayaran() {
+        System.out.println("Metode Pembayaran: Card (No: " + nomorKartu + ")");
+    }
 }

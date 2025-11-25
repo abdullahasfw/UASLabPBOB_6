@@ -16,4 +16,9 @@ public class CashPayment implements Pembayaran {
     public void bayar(double jumlah) {
         System.out.println("Cash Payment sebesar " + jumlah + " berhasil dilakukan dengan ID: " + id);
     }
+
+    @Override
+    public void idPembayaran() {
+        System.out.println("Metode Pembayaran: Cash (ID: " + id + ")");
+    }
 }

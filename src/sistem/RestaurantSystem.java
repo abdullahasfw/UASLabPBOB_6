@@ -258,15 +258,15 @@ public void tampilkanSemuaPesanan() {
 
   }
 
-    public void prosesTransaksi(Customer c, Pembayaran metode) {
+    public Transaksi prosesTransaksi(Customer c, Pembayaran metode) {
     Pesanan p = pesananAktif.get(c.getId());
 
     if (p == null) {
         System.out.println("Customer tidak memiliki pesanan.");
-        return;
+        return null;
     }
 
-    kasir.prosesPembayaran(p, c, metode);
+   Transaksi t = kasir.prosesPembayaran(p, c, metode);
 
     // Hapus dari pesanan aktif
     pesananAktif.remove(c.getId());
@@ -274,6 +274,8 @@ public void tampilkanSemuaPesanan() {
     updateStatusMeja(p.getMeja().getNomor(), "Tersedia");
 
     System.out.println("=== Transaksi selesai ===");
+
+    return t;
 }
 
 

@@ -88,10 +88,11 @@ public class RestaurantDriver {
 
         
         Pembayaran metode1 = new CashPayment(coba.getId());
-        sistem.prosesTransaksi(coba, metode1);
+        Transaksi t1 = sistem.prosesTransaksi(coba, metode1);
 
-        Pembayaran metode2 = new CardPayment(coba1.getId(), 777888);
-        sistem.prosesTransaksi(coba1, metode2);
+        //Pembayaran metode2 = new CardPayment(coba1.getId(), 777888);
+        //sistem.prosesTransaksi(coba1, metode2);
+
 
     }
 }

@@ -7,7 +7,7 @@ public class Struk {
 
 
 
-    /*public static void Cetak(Transaksi transaksi) {
+    public static void Cetak(Transaksi transaksi) {
         Pesanan p = transaksi.getPesanan();
         
         System.out.println("\n==================================");
@@ -20,7 +20,7 @@ public class Struk {
         double subtotalItem = 0;
         
         for (DetailPesanan detail : p.getDaftarItem()) {
-            double itemSubtotal = detail.hitungSubtotal();
+            double itemSubtotal = detail.getSubTotal();
             
             System.out.printf("%s (x%d) \tRp%,.0f\n", 
                               detail.getItem().getNama(), 
@@ -34,7 +34,7 @@ public class Struk {
             subtotalItem += itemSubtotal;
         }
 
-        double totalFinal = transaksi.getTotalBayar();
+        double totalFinal = p.getTotalHarga();
         double pajakLayanan = totalFinal - subtotalItem;
 
         System.out.println("----------------------------------");
@@ -49,6 +49,6 @@ public class Struk {
         System.out.println("Metode Bayar: " + transaksi.getMetodePembayaran().getClass().getSimpleName());
         System.out.println("==================================");
         System.out.println("   Terima Kasih Atas Kunjungan Anda!");
-        System.out.println("==================================");  :D
-    }*/
+        System.out.println("==================================");  
+    }
 }

@@ -25,4 +25,9 @@ public class QRISPayment implements Pembayaran {
         System.out.println("QRIS Payment sebesar " + jumlah + " berhasil dilakukan dengan ID: " + id + " QR Code: " + QRCode);
     }
 
+    @Override
+    public void idPembayaran() {
+        System.out.println("Metode Pembayaran: QRIS (Code: " + QRCode + ")");
+    }
+
 }
