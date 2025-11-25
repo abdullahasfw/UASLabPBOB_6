@@ -11,6 +11,10 @@ public class Customer extends Akun {
         return super.getId();
     }
 
+    public String getNama() {
+        return super.getNama();
+    }
+
     public void pilihMeja(){
         System.out.println("Meja atas nama: " + getNama() + "\nid: " + getId());
     }
@@ -24,5 +28,6 @@ public class Customer extends Akun {
         System.out.println("Menu Customer ditampilkan.");
         system.lihatMenu(); // Memanggil method dari parameter system
     }
+    
 
 }

@@ -11,10 +11,6 @@ public class RestaurantDriver {
     public static void main(String[] args) {
 
 
-        Pegawai tes = new Pegawai(1, "dobleh", "dobleh123", "kasir");
-        DatabaseManager.add("Pegawai.json", akun.Pegawai.class, tes);
-
-
         System.out.println("ini adalah");
 
         Makanan mk1 = new Makanan("nasi goreng", 10000, "1 - 5", "berat, gurih");
@@ -42,19 +38,19 @@ public class RestaurantDriver {
         DatabaseManager.add("Customer.json", akun.Customer.class, coba1);
 
         Meja meja1 = new Meja (1, "tersedia");
-    DatabaseManager.add("Meja.json", transaksi.Meja.class, meja1);
+        DatabaseManager.add("Meja.json", transaksi.Meja.class, meja1);
 
-    Meja meja2 = new Meja (2, "tersedia");
-    DatabaseManager.add("Meja.json", transaksi.Meja.class, meja2);
+        Meja meja2 = new Meja (2, "tersedia");
+        DatabaseManager.add("Meja.json", transaksi.Meja.class, meja2);
 
-    Meja meja3 = new Meja (3, "tersedia");
-    DatabaseManager.add("Meja.json", transaksi.Meja.class, meja3);
+        Meja meja3 = new Meja (3, "tersedia");
+        DatabaseManager.add("Meja.json", transaksi.Meja.class, meja3);
 
-    Meja meja4 = new Meja (4, "tersedia");
-    DatabaseManager.add("Meja.json", transaksi.Meja.class, meja4);
+        Meja meja4 = new Meja (4, "tersedia");
+        DatabaseManager.add("Meja.json", transaksi.Meja.class, meja4);
 
-    Meja meja5 = new Meja (5, "tersedia");
-    DatabaseManager.add("Meja.json", transaksi.Meja.class, meja5);
+        Meja meja5 = new Meja (5, "tersedia");
+        DatabaseManager.add("Meja.json", transaksi.Meja.class, meja5);
 
 
         // new CardPayment(1, 1234567);
@@ -74,11 +70,12 @@ public class RestaurantDriver {
         sistem.mulaiPesanan(coba1, meja1);
         sistem.mulaiPesanan(coba1, meja4);
         sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
-        sistem.tambahItemKePesanan(coba1, mk1, 2, "pedas 3");
+        sistem.tambahItemKePesanan(coba, mk2, 2, "pedas 3");
         sistem.tambahItemKePesanan(coba1, mk3, 2, "pedas 5");
-        sistem.tambahItemKePesanan(coba, mk2, 2, "pedas 1");
+        sistem.tambahItemKePesanan(coba, mn2, 2, "dingin");
         sistem.konfirmasiPesanan(coba);
         sistem.konfirmasiPesanan(coba1);
+        sistem.prosesDapur();
         sistem.tampilkanDaftarMeja();
         sistem.tampilkanPesananCS(coba1);
         sistem.tampilkanPesananCS(coba);

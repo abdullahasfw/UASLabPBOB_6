@@ -10,12 +10,18 @@ public class Pesanan {
     private List<DetailPesanan> daftarItem = new ArrayList<>();
     private Meja meja;
     private double totalHarga;
+    private String customerName;
 
-    public Pesanan(int idPesanan, Meja meja) {
-        this.idPesanan = idPesanan;
-        this.meja = meja;
+    public Pesanan(int idPesanan, Meja meja, String status, String customerName) {
+    this.idPesanan = idPesanan;
+    this.meja = meja;
+    this.status = status;
+    this.customerName = customerName;
+}
 
-    }
+public String getCustomerName() {
+    return customerName;
+}
 
     public double getTotalHarga() {
         double totalHarga = 0;
@@ -42,12 +48,13 @@ public List<DetailPesanan> getDaftarItem() {
     return daftarItem;
 }
 
+public void setStatus(String status) {
+    this.status = status;
+}
 
-
-    
-
-
-
+public String getStatus(){
+    return status;
+}
     // public void konfirmasiPesanan() {
     //     this.status = "Dikonfirmasi";
     //     System.out.println("Pesanan #" + idPesanan + " telah dikonfirmasi ke Dapur.");

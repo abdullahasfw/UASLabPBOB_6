@@ -7,12 +7,20 @@ import database.DatabaseManager;
 
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 public class RestaurantSystem {
     private Map<Integer, Pesanan> pesananAktif = new HashMap<>();
     private int idPesananCounter = 0;
+    private Queue<Pesanan> antrianDapur = new LinkedList<>();
+
+    private Koki koki = new Koki(101, "budi","koki123", "koki");
+    private Pelayan pelayan = new Pelayan(201, "siti","pelayan123", "pelayan");
+    private Kasir kasir = new Kasir(301, "andi","kasir123", "kasir");
+    
 
     // Method ini sesuai dengan diagram UML: +lihatMenu()
     public void lihatMenu() {
@@ -97,7 +105,7 @@ public class RestaurantSystem {
         return;
     }
 
-        Pesanan baru = new Pesanan(generateIdPesanan(), meja);
+        Pesanan baru = new Pesanan(generateIdPesanan(), meja, "dipesan", customer.getNama());
         pesananAktif.put(customer.getId(), baru);
 
         System.out.println("Pesanan baru dibuat untuk customer: " + customer.getNama());
@@ -185,6 +193,7 @@ public void tampilkanSemuaPesanan() {
     public void konfirmasiPesanan(Customer customer) {
     // 1. Ambil pesanan
     Pesanan p = pesananAktif.get(customer.getId());
+    antrianDapur.add(p);
 
     if (p == null) {
         System.out.println("Tidak ada pesanan untuk dikonfirmasi.");
@@ -197,6 +206,33 @@ public void tampilkanSemuaPesanan() {
      System.out.println("Pesanan berhasil dikonfirmasi dan masuk ke dapur!");
 
      }
+
+     public void prosesDapur() {
+        if (antrianDapur.isEmpty()) {
+            System.out.println("Tidak ada pesanan untuk dimasak.");
+            return;
+        }
+
+         while (!antrianDapur.isEmpty()) {
+        Pesanan p = antrianDapur.poll();   // ambil satu pesanan dari queue
+
+        koki.mulaiMasak(p);
+        System.out.println(
+            "Pesanan #" + p.getIdPesanan() +
+            " atas nama: " + p.getCustomerName() +
+            p.getStatus()
+        );
+
+        koki.selesaiMasak(p);
+        System.out.println(
+            "Pesanan #" + p.getIdPesanan() +
+            " atas nama: " + p.getCustomerName() +
+             p.getStatus()
+        );
+    }
+
+        System.out.println("Semua pesanan dalam antrian dapur telah diproses.");
+    }
 
      public boolean updateStatusMeja(int nomorMeja, String statusBaru) {
         // 1. Load semua data meja dari file JSON
@@ -221,10 +257,10 @@ public void tampilkanSemuaPesanan() {
         if (mejaDitemukan) {
             // 4. Simpan kembali (overwrite) seluruh daftar meja ke file JSON
             DatabaseManager.save("Meja.json", semuaMeja);
-            // System.out.println("Status Meja #" + nomorMeja + " berhasil diubah menjadi: " + statusBaru);
+            System.out.println("Status Meja #" + nomorMeja + " berhasil diubah menjadi: " + statusBaru);
             return true;
         } else {
-            // System.out.println("Meja dengan nomor " + nomorMeja + " tidak ditemukan.");
+         System.out.println("Meja dengan nomor " + nomorMeja + " tidak ditemukan.");
             return false;
         }
     }
