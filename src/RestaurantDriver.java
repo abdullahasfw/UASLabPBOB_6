@@ -85,7 +85,13 @@ public class RestaurantDriver {
         sistem.tampilkanPesananCS(coba1);
         sistem.tampilkanPesananCS(coba);
         sistem.tampilkanSemuaPesanan();
+
         
+        Pembayaran metode1 = new CashPayment(coba.getId());
+        sistem.prosesTransaksi(coba, metode1);
+
+        Pembayaran metode2 = new CardPayment(coba1.getId(), 777888);
+        sistem.prosesTransaksi(coba1, metode2);
 
     }
 }

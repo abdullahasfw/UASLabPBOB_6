@@ -1,5 +1,4 @@
 package akun;
-import static akun.Pegawai.PERAN_VALID;
 import sistem.RestaurantSystem;
 
 import transaksi.Pesanan;
@@ -7,21 +6,10 @@ import transaksi.Pesanan;
 public class Koki extends Pegawai{
    
     public Koki(int id, String nama, String password, String peran) {
-        super(id, nama, password, "koki");
-        if (!isPeranValid(peran)) {
-            throw new IllegalArgumentException("Peran'" + peran + "' tidak valid!");
-        }
+        super(id, nama, password);
+
     }
     
-    private boolean isPeranValid(String peran) {
-        for (String p : PERAN_VALID) {
-            if (p.equalsIgnoreCase(peran)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void mulaiMasak(Pesanan p) {
         p.setStatus("Dimasak");
     }
@@ -39,6 +27,6 @@ public class Koki extends Pegawai{
         system.prosesDapur();
     }
 
-    
+
 
 }

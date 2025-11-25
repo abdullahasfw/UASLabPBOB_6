@@ -1,6 +1,7 @@
 package sistem;
 
-import menu.*; 
+import menu.*;
+import pembayaran.Pembayaran;
 import akun.*;  
 import transaksi.*;
 import database.DatabaseManager;
@@ -257,20 +258,24 @@ public void tampilkanSemuaPesanan() {
 
   }
 
-    //  public void prosesTransaksi() {
-    //     if (antrianTransaksi.isEmpty()) {
-    //         System.out.println("Tidak ada pesanan untuk diproses transaksi.");
-    //         return;
-    //     }
+    public void prosesTransaksi(Customer c, Pembayaran metode) {
+    Pesanan p = pesananAktif.get(c.getId());
 
-    //     while (!antrianTransaksi.isEmpty()) {
-    //         Pesanan p = antrianTransaksi.poll();
+    if (p == null) {
+        System.out.println("Customer tidak memiliki pesanan.");
+        return;
+    }
 
-    //         kasir.prosesPembayaran(p);  // pakai method kasir
+    kasir.prosesPembayaran(p, c, metode);
 
-    //         // Hapus pesanan dari pesananAktif setelah transaksi selesai
-    //         pesananAktif.values().removeIf(pesanan -> pesanan.getIdPesanan() == p.getIdPesanan());
-    //     }
+    // Hapus dari pesanan aktif
+    pesananAktif.remove(c.getId());
+
+    updateStatusMeja(p.getMeja().getNomor(), "Tersedia");
+
+    System.out.println("=== Transaksi selesai ===");
+}
+
 
 
 
@@ -297,7 +302,6 @@ public void tampilkanSemuaPesanan() {
         if (mejaDitemukan) {
             // 4. Simpan kembali (overwrite) seluruh daftar meja ke file JSON
             DatabaseManager.save("Meja.json", semuaMeja);
-            System.out.println("Status Meja #" + nomorMeja + " berhasil diubah menjadi: " + statusBaru);
             return true;
         } else {
          System.out.println("Meja dengan nomor " + nomorMeja + " tidak ditemukan.");

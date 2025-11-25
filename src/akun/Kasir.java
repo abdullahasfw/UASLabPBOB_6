@@ -1,21 +1,19 @@
 package akun;
-import static akun.Pegawai.PERAN_VALID;
+
+import pembayaran.Pembayaran;
+import transaksi.Pesanan;
 
 public class Kasir extends Pegawai {
     
     public Kasir(int id, String nama, String password, String peran) {
-        super(id, nama, password, "kasir");
-        if (!isPeranValid(peran)) {
-            throw new IllegalArgumentException("Peran'" + peran + "' tidak valid!");
-        }
+        super(id, nama, password);
+
     }
 
-     private boolean isPeranValid(String peran) {
-        for (String p : PERAN_VALID) {
-            if (p.equalsIgnoreCase(peran)) {
-                return true;
-            }
-        }
-        return false;
+    public void prosesPembayaran(Pesanan p, Customer c, Pembayaran metode) {
+    System.out.println("Kasir memproses transaksi pesanan #" + p.getIdPesanan());
+    c.bayarPesanan(p, metode);
+    p.setStatus("Sudah Dibayar");
     }
+
 }
