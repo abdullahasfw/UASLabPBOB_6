@@ -12,7 +12,7 @@ public class CashPayment implements Pembayaran {
         return id;
     }
 
-    public void bayarCash(double jumlah) {
+    public void bayar(double jumlah) {
         System.out.println("Cash Payment sebesar " + jumlah + " berhasil dilakukan dengan ID: " + id);
     }
 }

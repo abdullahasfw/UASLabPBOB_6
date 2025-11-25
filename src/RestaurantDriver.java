@@ -75,12 +75,17 @@ public class RestaurantDriver {
         sistem.tambahItemKePesanan(coba, mn2, 2, "dingin");
         sistem.konfirmasiPesanan(coba);
         sistem.konfirmasiPesanan(coba1);
+        sistem.tampilkanPesananCS(coba1);
+        sistem.tampilkanPesananCS(coba);
         sistem.prosesDapur();
         sistem.tampilkanDaftarMeja();
         sistem.tampilkanPesananCS(coba1);
         sistem.tampilkanPesananCS(coba);
+        sistem.prosesAntarPesanan();
+        sistem.tampilkanPesananCS(coba1);
+        sistem.tampilkanPesananCS(coba);
         sistem.tampilkanSemuaPesanan();
-        sistem.tampilkanDaftarMeja();
+        
 
     }
 }

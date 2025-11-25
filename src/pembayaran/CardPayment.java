@@ -21,7 +21,7 @@ public class CardPayment implements Pembayaran {
         return nomorKartu;
     }
 
-    public void bayarCard(double jumlah) {
+    public void bayar(double jumlah) {
         System.out.println("Card Payment sebesar " + jumlah + " berhasil dilakukan dengan ID: " + id + "dengan Nomor Kartu: " + nomorKartu);
     }
 }

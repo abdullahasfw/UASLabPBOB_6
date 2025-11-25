@@ -19,7 +19,7 @@ public class QRISPayment implements Pembayaran {
     public String getQRCode() {
         return QRCode;
     }
-    public void bayarQRIS(double jumlah) {
+    public void bayar(double jumlah) {
         System.out.println("QRIS Payment sebesar " + jumlah + " berhasil dilakukan dengan ID: " + id + "QR Code: " + QRCode);
     }
 

@@ -110,7 +110,7 @@ if (clazz.getSimpleName().equals("Customer") ||
                 }
 
                 if (isDuplicate) {
-                    System.out.println("GAGAL: Menu yang sama sudah ada!");
+                    // System.out.println("GAGAL: Menu yang sama sudah ada!");
                     return;
                 }
             }
@@ -124,7 +124,7 @@ if (clazz.getSimpleName().equals("Customer") ||
             for (T obj : data) {
                 Meja existing = (Meja) obj;
                 if (existing.getNomor() == newMeja.getNomor()) {
-                    System.out.println("GAGAL: Meja nomor " + newMeja.getNomor() + " sudah ada!");
+                    // System.out.println("GAGAL: Meja nomor " + newMeja.getNomor() + " sudah ada!");
                     return;
                 }
             }

@@ -5,7 +5,6 @@ import akun.*;
 import transaksi.*;
 import database.DatabaseManager;
 
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +15,8 @@ public class RestaurantSystem {
     private Map<Integer, Pesanan> pesananAktif = new HashMap<>();
     private int idPesananCounter = 0;
     private Queue<Pesanan> antrianDapur = new LinkedList<>();
+    private Queue<Pesanan> antrianSiapAntar = new LinkedList<>();
+    private Queue<Pesanan> antrianTransaksi = new LinkedList<>();
 
     private Koki koki = new Koki(101, "budi","koki123", "koki");
     private Pelayan pelayan = new Pelayan(201, "siti","pelayan123", "pelayan");
@@ -163,6 +164,8 @@ public class RestaurantSystem {
             + " | Subtotal: " + dp.getSubTotal()
         );
     }
+    System.out.println("status pesanan:  " + p.getStatus());
+    System.out.println("Total Harga: " + p.getTotalHarga());
 }
 
 public void tampilkanSemuaPesanan() {
@@ -219,20 +222,57 @@ public void tampilkanSemuaPesanan() {
         koki.mulaiMasak(p);
         System.out.println(
             "Pesanan #" + p.getIdPesanan() +
-            " atas nama: " + p.getCustomerName() +
+            " atas nama: " + p.getCustomerName() + " " +
             p.getStatus()
         );
 
         koki.selesaiMasak(p);
         System.out.println(
             "Pesanan #" + p.getIdPesanan() +
-            " atas nama: " + p.getCustomerName() +
+            " atas nama: " + p.getCustomerName() + " " +
              p.getStatus()
         );
+
+        antrianSiapAntar.add(p);
+        System.out.println(
+            "Pesanan #" + p.getIdPesanan() +
+            " masuk ke antrian pelayan untuk diantar.");
     }
 
         System.out.println("Semua pesanan dalam antrian dapur telah diproses.");
     }
+
+    public void prosesAntarPesanan() {
+    if (antrianSiapAntar.isEmpty()) {
+        System.out.println("Tidak ada pesanan yang siap diantar.");
+        return;
+    }
+
+    while (!antrianSiapAntar.isEmpty()) {
+        Pesanan p = antrianSiapAntar.poll();
+
+        pelayan.antarPesanan(p);  // pakai method pelayan
+        antrianTransaksi.add(p);
+    }
+
+  }
+
+    //  public void prosesTransaksi() {
+    //     if (antrianTransaksi.isEmpty()) {
+    //         System.out.println("Tidak ada pesanan untuk diproses transaksi.");
+    //         return;
+    //     }
+
+    //     while (!antrianTransaksi.isEmpty()) {
+    //         Pesanan p = antrianTransaksi.poll();
+
+    //         kasir.prosesPembayaran(p);  // pakai method kasir
+
+    //         // Hapus pesanan dari pesananAktif setelah transaksi selesai
+    //         pesananAktif.values().removeIf(pesanan -> pesanan.getIdPesanan() == p.getIdPesanan());
+    //     }
+
+
 
      public boolean updateStatusMeja(int nomorMeja, String statusBaru) {
         // 1. Load semua data meja dari file JSON

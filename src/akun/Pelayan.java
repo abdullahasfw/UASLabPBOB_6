@@ -1,5 +1,6 @@
 package akun;
 import sistem.RestaurantSystem;
+import transaksi.Pesanan;
 import static akun.Pegawai.PERAN_VALID;
 
 public class Pelayan extends Pegawai {
@@ -20,6 +21,18 @@ public class Pelayan extends Pegawai {
         }
         return false;
     }
+
+    public void antarPesanan(Pesanan p) {
+    p.setStatus("Diantar");
+
+    System.out.println(
+        "Pelayan " + this.getNama() +
+        " mengantar pesanan #" + p.getIdPesanan() +
+        " untuk customer: " + p.getCustomerName() +
+        " ke meja #" + p.getMeja().getNomor()
+    );
+}
+
 
     public void bersihkanMeja(RestaurantSystem sistem, int nomorMeja) {
     // Memanggil method di kelas RestaurantSystem untuk eksekusi logika
