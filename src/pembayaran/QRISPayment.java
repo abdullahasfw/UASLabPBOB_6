@@ -3,9 +3,9 @@ public class QRISPayment implements Pembayaran {
     private int id;
     private String QRCode;
 
-    public QRISPayment(int id, String QRCode) {
+    public QRISPayment(int id) {
         this.id = id;
-        this.QRCode = QRCode;
+        this.QRCode = generateQRCode();
     }
     public void setID(int id) {
         this.id = id;
@@ -18,6 +18,10 @@ public class QRISPayment implements Pembayaran {
     }
     public String getQRCode() {
         return QRCode;
+    }
+
+    public String generateQRCode() {
+        return "QRIS" + id + System.currentTimeMillis();
     }
     
     @Override

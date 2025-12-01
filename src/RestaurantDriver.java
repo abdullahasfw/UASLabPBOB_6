@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import akun.*;
@@ -78,7 +80,7 @@ if (akun instanceof Customer) {
         System.out.println("\n=== MENU CUSTOMER ===");
         System.out.println("1. Lihat Menu");
         System.out.println("2. Lihat Daftar Meja");
-        System.out.println("3. Mulai Pesanan");
+        System.out.println("3. Pesanan");
         System.out.println("4. Tambah Item ke Pesanan");
         System.out.println("5. Konfirmasi Pesanan");
         System.out.println("6. Lihat Pesanan Saya");
@@ -100,55 +102,96 @@ if (akun instanceof Customer) {
             case 2:
                 sistem.tampilkanDaftarMeja();
                 break;
+                
+case 3:
 
-            case 3:
-                System.out.print("Nomor meja: ");
-                int no = sc.nextInt();
-                sc.nextLine();
-                Meja m = new Meja(no, "tersedia");
-                sistem.mulaiPesanan(c, m);
-                break;
+    System.out.println("\n=== DAFTAR MEJA ===");
+    sistem.tampilkanDaftarMeja();
+
+    System.out.print("Nomor meja: ");
+    int no = sc.nextInt();
+    sc.nextLine();
+
+    List<Meja> daftarMeja = DatabaseManager.load("Meja.json", Meja.class);
+
+    Meja mejaDipilih = null;
+    for (Meja mj : daftarMeja) {
+        if (mj.getNomor() == no) {
+            mejaDipilih = mj;
+            break;
+        }
+    }
+
+    if (mejaDipilih == null) {
+        System.out.println(" Nomor meja tidak valid!");
+        break;
+    }
+
+    if (!mejaDipilih.getStatus().equalsIgnoreCase("tersedia")) {
+        System.out.println(" Meja sudah ditempati!");
+        break;
+    }
+
+    // Mulai pesanan
+    sistem.mulaiPesanan(c, mejaDipilih);
+
+    // =======================================================
+    // ====== TAMPILKAN MENU GABUNGAN (makanan+minuman) ======
+    // =======================================================
+    System.out.println("\n=== MENU MAKANAN & MINUMAN ===");
+
+    List<MenuItem> daftarGabungan = new ArrayList<>();
+
+    List<Makanan> listMkn = DatabaseManager.load("MenuMakanan.json", Makanan.class);
+    List<Minuman> listMin = DatabaseManager.load("MenuMinuman.json", Minuman.class);
+
+    daftarGabungan.addAll(listMkn);
+    daftarGabungan.addAll(listMin);
+
+    for (int i = 0; i < daftarGabungan.size(); i++) {
+        MenuItem mi = daftarGabungan.get(i);
+        System.out.println((i + 1) + ". " + mi.getNama() + " - Rp" + mi.getHarga());
+    }
+
+    // =======================================================
+    // ====== INPUT PILIHAN NOMOR MENU ======
+    // =======================================================
+    System.out.print("\nPilih nomor menu: ");
+    int pilihMenu = sc.nextInt();
+    sc.nextLine();
+
+    if (pilihMenu < 1 || pilihMenu > daftarGabungan.size()) {
+        System.out.println("Menu tidak valid!");
+        break;
+    }
+
+    MenuItem itemDipilih = daftarGabungan.get(pilihMenu - 1);
+
+    // =======================================================
+    // ====== INPUT JUMLAH DAN CATATAN ======
+    // =======================================================
+    System.out.print("Jumlah: ");
+    int jumlahItem = sc.nextInt();
+    sc.nextLine();
+
+    System.out.print("Catatan (optional): ");
+    String catatan = sc.nextLine();
+
+    // Masukkan item ke pesanan
+    sistem.tambahItemKePesanan(c, itemDipilih, jumlahItem, catatan);
+
+    System.out.println("Item berhasil ditambahkan!");
+
+    // Konfirmasi (langsung)
+    sistem.konfirmasiPesanan(c);
+    break;
+
 
             case 4:
-                System.out.print("Nama menu: ");
-                String namaMenu = sc.nextLine();
-
-                System.out.print("Jumlah: ");
-                int jumlah = sc.nextInt();
-                sc.nextLine();
-
-                MenuItem item = null;
-
-                // cek di makanan
-                for (Makanan mk : DatabaseManager.load("MenuMakanan.json", Makanan.class)) {
-                    if (mk.getNama().equalsIgnoreCase(namaMenu))
-                        item = mk;
-                }
-
-                // cek di minuman
-                for (Minuman mn : DatabaseManager.load("MenuMinuman.json", Minuman.class)) {
-                    if (mn.getNama().equalsIgnoreCase(namaMenu))
-                        item = mn;
-                }
-
-                if (item == null) {
-                    System.out.println("Menu tidak ditemukan!");
-                } else {
-                    System.out.print("Catatan (optional): ");
-                    String catatan = sc.nextLine();
-                    sistem.tambahItemKePesanan(c, item, jumlah, catatan);
-                }
-                break;
-
-            case 5:
-                sistem.konfirmasiPesanan(c);
-                break;
-
-            case 6:
                 sistem.tampilkanPesananCS(c);
                 break;
 
-            case 7:
+            case 5:
                 System.out.println("Metode bayar:");
                 System.out.println("1. Cash");
                 System.out.println("2. Kartu");
@@ -166,7 +209,7 @@ if (akun instanceof Customer) {
                 sistem.prosesTransaksi(c, metode);
                 break;
 
-            case 8:
+            case 6:
                 akun = null;
                 while (akun == null) {
                     akun = login.login();
