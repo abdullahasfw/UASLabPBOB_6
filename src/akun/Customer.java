@@ -29,11 +29,6 @@ public class Customer extends Akun {
         System.out.println("Pesanan dibuat oleh " + getNama());
     }
 
-    @Override
-    public void tampilkanMenuAksi(RestaurantSystem system) {
-        System.out.println("Menu Customer ditampilkan.");
-        system.lihatMenu(); // Memanggil method dari parameter system
-    }
 
     public void bayarPesanan(Pesanan p, Pembayaran metode) {
     System.out.println("Customer " + getNama() + " memilih metode pembayaran.");

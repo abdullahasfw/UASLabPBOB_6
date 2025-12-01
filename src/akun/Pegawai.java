@@ -14,11 +14,6 @@ public class Pegawai extends Akun {
         System.out.println("Status pesanan diperbarui oleh " + getNama());
     }
 
-    @Override
-    public void tampilkanMenuAksi(RestaurantSystem system) {
-        System.out.println("Menu Pegawai ditampilkan.");
-    }
-
     public void setOnline(boolean online) {
         isOnline = online;
     }
