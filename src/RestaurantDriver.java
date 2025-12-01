@@ -80,12 +80,10 @@ if (akun instanceof Customer) {
         System.out.println("\n=== MENU CUSTOMER ===");
         System.out.println("1. Lihat Menu");
         System.out.println("2. Lihat Daftar Meja");
-        System.out.println("3. Pesanan");
-        System.out.println("4. Tambah Item ke Pesanan");
-        System.out.println("5. Konfirmasi Pesanan");
-        System.out.println("6. Lihat Pesanan Saya");
-        System.out.println("7. Bayar");
-        System.out.println("8. Logout");
+        System.out.println("3. Pesan");
+        System.out.println("4. Lihat Pesanan Saya");
+        System.out.println("5. Bayar");
+        System.out.println("6. Logout");
         System.out.println("0. Tutup Aplikasi");
         System.out.print("Pilih: ");
 
@@ -112,6 +110,7 @@ case 3:
     int no = sc.nextInt();
     sc.nextLine();
 
+    // Ambil semua meja dari database
     List<Meja> daftarMeja = DatabaseManager.load("Meja.json", Meja.class);
 
     Meja mejaDipilih = null;
@@ -132,59 +131,72 @@ case 3:
         break;
     }
 
-    // Mulai pesanan
+    // Mulai Pesanan
     sistem.mulaiPesanan(c, mejaDipilih);
 
-    // =======================================================
-    // ====== TAMPILKAN MENU GABUNGAN (makanan+minuman) ======
-    // =======================================================
-    System.out.println("\n=== MENU MAKANAN & MINUMAN ===");
+    // =============================
+    // LOOP PEMESANAN BERULANG
+    // =============================
+    while (true) {
 
-    List<MenuItem> daftarGabungan = new ArrayList<>();
+        System.out.println("\n=== MENU MAKANAN & MINUMAN ===");
 
-    List<Makanan> listMkn = DatabaseManager.load("MenuMakanan.json", Makanan.class);
-    List<Minuman> listMin = DatabaseManager.load("MenuMinuman.json", Minuman.class);
+        List<MenuItem> daftarGabungan = new ArrayList<>();
 
-    daftarGabungan.addAll(listMkn);
-    daftarGabungan.addAll(listMin);
+        List<Makanan> listMkn = DatabaseManager.load("MenuMakanan.json", Makanan.class);
+        List<Minuman> listMin = DatabaseManager.load("MenuMinuman.json", Minuman.class);
 
-    for (int i = 0; i < daftarGabungan.size(); i++) {
-        MenuItem mi = daftarGabungan.get(i);
-        System.out.println((i + 1) + ". " + mi.getNama() + " - Rp" + mi.getHarga());
+        daftarGabungan.addAll(listMkn);
+        daftarGabungan.addAll(listMin);
+
+        for (int i = 0; i < daftarGabungan.size(); i++) {
+            MenuItem mi = daftarGabungan.get(i);
+            System.out.println((i + 1) + ". " + mi.getNama() + " - Rp" + mi.getHarga());
+        }
+
+        // pilih menu
+        System.out.print("\nPilih nomor menu (0 untuk selesai): ");
+        int pilihMenu = sc.nextInt();
+        sc.nextLine();
+
+        if (pilihMenu == 0) {
+            break; // keluar dari loop pemesanan
+        }
+
+        if (pilihMenu < 1 || pilihMenu > daftarGabungan.size()) {
+            System.out.println("Menu tidak valid!");
+            continue;
+        }
+
+        MenuItem itemDipilih = daftarGabungan.get(pilihMenu - 1);
+
+        // input jumlah
+        System.out.print("Jumlah: ");
+        int jumlahItem = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Catatan (optional): ");
+        String catatan = sc.nextLine();
+
+        sistem.tambahItemKePesanan(c, itemDipilih, jumlahItem, catatan);
+
+        System.out.println("Item berhasil ditambahkan!");
+
+        // tawarkan lagi
+        System.out.print("Ingin tambah item lagi? (y/n): ");
+        String lagi = sc.nextLine();
+
+        if (!lagi.equalsIgnoreCase("y")) {
+            break;
+        }
     }
 
-    // =======================================================
-    // ====== INPUT PILIHAN NOMOR MENU ======
-    // =======================================================
-    System.out.print("\nPilih nomor menu: ");
-    int pilihMenu = sc.nextInt();
-    sc.nextLine();
-
-    if (pilihMenu < 1 || pilihMenu > daftarGabungan.size()) {
-        System.out.println("Menu tidak valid!");
-        break;
-    }
-
-    MenuItem itemDipilih = daftarGabungan.get(pilihMenu - 1);
-
-    // =======================================================
-    // ====== INPUT JUMLAH DAN CATATAN ======
-    // =======================================================
-    System.out.print("Jumlah: ");
-    int jumlahItem = sc.nextInt();
-    sc.nextLine();
-
-    System.out.print("Catatan (optional): ");
-    String catatan = sc.nextLine();
-
-    // Masukkan item ke pesanan
-    sistem.tambahItemKePesanan(c, itemDipilih, jumlahItem, catatan);
-
-    System.out.println("Item berhasil ditambahkan!");
-
-    // Konfirmasi (langsung)
+    // setelah selesai pilih item → konfirmasi pesanan
+    System.out.println("\nMengonfirmasi pesanan...");
     sistem.konfirmasiPesanan(c);
+
     break;
+
 
 
             case 4:
@@ -192,22 +204,36 @@ case 3:
                 break;
 
             case 5:
-                System.out.println("Metode bayar:");
-                System.out.println("1. Cash");
-                System.out.println("2. Kartu");
-                System.out.print("Pilih: ");
-                int bay = sc.nextInt();
+    System.out.println("Metode bayar:");
+    System.out.println("1. Cash");
+    System.out.println("2. Kartu");
+    System.out.println("3. QRIS");
+    System.out.print("Pilih: ");
+    int bay = sc.nextInt();
+    sc.nextLine();
 
-                Pembayaran metode = null;
-                if (bay == 1) metode = new CashPayment(c.getId());
-                else {
-                    System.out.print("Masukkan nomor kartu: ");
-                    int kartu = sc.nextInt();
-                    metode = new CardPayment(c.getId(), kartu);
-                }
+    Pembayaran metode = null;
 
-                sistem.prosesTransaksi(c, metode);
-                break;
+    if (bay == 1) {
+        metode = new CashPayment(c.getId());
+    } 
+    else if (bay == 2) {
+        System.out.print("Masukkan nomor kartu: ");
+        int kartu = sc.nextInt();
+        sc.nextLine();
+        metode = new CardPayment(c.getId(), kartu);
+    } 
+    else if (bay == 3) {
+        metode = new QRISPayment(c.getId());
+    } 
+    else {
+        System.out.println("Pilihan tidak valid!");
+        break;
+    }
+
+    sistem.prosesTransaksi(c, metode);
+    break;
+
 
             case 6:
                 akun = null;
