@@ -1,4 +1,5 @@
 import akun.*;
+import auth.Login;
 import menu.*;
 import transaksi.*;
 import pembayaran.*;
@@ -10,8 +11,7 @@ import database.DatabaseManager;
 public class RestaurantDriver {
     public static void main(String[] args) {
 
-
-        System.out.println("ini adalah");
+        RestaurantSystem sistem = new RestaurantSystem();
 
         Makanan mk1 = new Makanan("nasi goreng", 10000, "1 - 5", "berat, gurih");
         DatabaseManager.add("MenuMakanan.json", menu.Makanan.class, mk1);
@@ -25,7 +25,7 @@ public class RestaurantDriver {
         Minuman mn1 = new Minuman("jus", 6000, "sedang", "dingin/sedang");
         DatabaseManager.add("MenuMinuman.json", menu.Minuman.class, mn1);
 
-        Minuman mn2 = new Minuman("teh", 5000, "sedang", "panas/hangat");
+        Minuman mn2 = new Minuman("teh", 5000, "sedang", "panas/hangat/dingin");
         DatabaseManager.add("MenuMinuman.json", menu.Minuman.class, mn2);
 
         Minuman mn3 = new Minuman("kopi", 8000, "sedang", "panas/dingin");
@@ -51,47 +51,48 @@ public class RestaurantDriver {
 
         Meja meja5 = new Meja (5, "tersedia");
         DatabaseManager.add("Meja.json", transaksi.Meja.class, meja5);
-
-
-        // new CardPayment(1, 1234567);
-        // coba.bayarCard(21000);
-
+        System.out.flush();
 
         System.out.println("\n--- SIMULASI APLIKASI ---");
 
+        Login login = new Login();
+        Object akun = login.login();
 
-        // Inisialisasi Sistem
-        RestaurantSystem sistem = new RestaurantSystem();
-
-        // Customer melakukan aksi
-        coba.tampilkanMenuAksi(sistem);
-        sistem.tampilkanDaftarMeja();
-        sistem.mulaiPesanan(coba, meja1);
-        sistem.mulaiPesanan(coba1, meja1);
-        sistem.mulaiPesanan(coba1, meja4);
-        sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
-        sistem.tambahItemKePesanan(coba, mk2, 2, "pedas 3");
-        sistem.tambahItemKePesanan(coba1, mk3, 2, "pedas 5");
-        sistem.tambahItemKePesanan(coba, mn2, 2, "dingin");
-        sistem.konfirmasiPesanan(coba);
-        sistem.konfirmasiPesanan(coba1);
-        sistem.tampilkanPesananCS(coba1);
-        sistem.tampilkanPesananCS(coba);
-        sistem.prosesDapur();
-        sistem.tampilkanDaftarMeja();
-        sistem.tampilkanPesananCS(coba1);
-        sistem.tampilkanPesananCS(coba);
-        sistem.prosesAntarPesanan();
-        sistem.tampilkanPesananCS(coba1);
-        sistem.tampilkanPesananCS(coba);
-        sistem.tampilkanSemuaPesanan();
+        while (true){
+            
+        }
 
         
-        Pembayaran metode1 = new CashPayment(coba.getId());
-        Transaksi t1 = sistem.prosesTransaksi(coba, metode1);
 
-        //Pembayaran metode2 = new CardPayment(coba1.getId(), 777888);
-        //sistem.prosesTransaksi(coba1, metode2);
+        // Customer melakukan aksi
+        // coba.tampilkanMenuAksi(sistem);
+        // sistem.tampilkanDaftarMeja();
+        // sistem.mulaiPesanan(coba, meja1);
+        // sistem.mulaiPesanan(coba1, meja1);
+        // sistem.mulaiPesanan(coba1, meja4);
+        // sistem.tambahItemKePesanan(coba, mk3, 2, "pedas 3");
+        // sistem.tambahItemKePesanan(coba, mk2, 2, "pedas 3");
+        // sistem.tambahItemKePesanan(coba1, mk3, 2, "pedas 5");
+        // sistem.tambahItemKePesanan(coba, mn2, 2, "dingin");
+        // sistem.konfirmasiPesanan(coba);
+        // sistem.konfirmasiPesanan(coba1);
+        // sistem.tampilkanPesananCS(coba1);
+        // sistem.tampilkanPesananCS(coba);
+        // sistem.prosesDapur();
+        // sistem.tampilkanDaftarMeja();
+        // sistem.tampilkanPesananCS(coba1);
+        // sistem.tampilkanPesananCS(coba);
+        // sistem.prosesAntarPesanan();
+        // sistem.tampilkanPesananCS(coba1);
+        // sistem.tampilkanPesananCS(coba);
+        // sistem.tampilkanSemuaPesanan();
+
+        
+        // Pembayaran metode1 = new CashPayment(coba.getId());
+        // Transaksi t1 = sistem.prosesTransaksi(coba, metode1);
+
+        // Pembayaran metode2 = new CardPayment(coba1.getId(), 777888);
+        // sistem.prosesTransaksi(coba1, metode2);
 
 
     }

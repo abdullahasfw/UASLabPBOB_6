@@ -69,7 +69,7 @@ if (clazz.getSimpleName().equals("Customer") ||
         int existingId = idField.getInt(obj);
 
         if (existingId == newId) {
-            System.out.println("GAGAL: ID " + newId + " sudah ada!");
+            // System.out.println("GAGAL: ID " + newId + " sudah ada!");
             return;
         }
     }
@@ -137,7 +137,7 @@ if (clazz.getSimpleName().equals("Customer") ||
 
     data.add(newData);
     save(fileName, data);
-    System.out.println("Berhasil menambah data ke " + fileName);
+    // System.out.println("Berhasil menambah data ke " + fileName);
 }
 
 

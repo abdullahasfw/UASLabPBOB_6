@@ -6,11 +6,13 @@ import akun.*;
 import transaksi.*;
 import database.DatabaseManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+
 
 public class RestaurantSystem {
     private Map<Integer, Pesanan> pesananAktif = new HashMap<>();
@@ -18,11 +20,24 @@ public class RestaurantSystem {
     private Queue<Pesanan> antrianDapur = new LinkedList<>();
     private Queue<Pesanan> antrianSiapAntar = new LinkedList<>();
     private Queue<Pesanan> antrianTransaksi = new LinkedList<>();
+    public static List<Pegawai> pegawaiList = new ArrayList<>();
+    public static List<Customer> customerList = new ArrayList<>();
 
-    private Koki koki = new Koki(101, "budi","koki123", "koki");
-    private Pelayan pelayan = new Pelayan(201, "siti","pelayan123", "pelayan");
-    private Kasir kasir = new Kasir(301, "andi","kasir123", "kasir");
-    
+    private Koki koki;
+    private Pelayan pelayan;
+    private Kasir kasir;
+
+
+    public RestaurantSystem() {
+
+    koki = new Koki(101, "budi","koki123", "koki");
+    pelayan = new Pelayan(201, "siti","pelayan123", "pelayan");
+    kasir = new Kasir(301, "andi","kasir123", "kasir");
+
+    DatabaseManager.add("Pegawai.json", Koki.class, koki);
+    DatabaseManager.add("Pegawai.json", Pelayan.class, pelayan);
+    DatabaseManager.add("Pegawai.json", Kasir.class, kasir);
+    }
 
     // Method ini sesuai dengan diagram UML: +lihatMenu()
     public void lihatMenu() {
@@ -271,7 +286,7 @@ public void tampilkanSemuaPesanan() {
     // Hapus dari pesanan aktif
     pesananAktif.remove(c.getId());
 
-    updateStatusMeja(p.getMeja().getNomor(), "Tersedia");
+    updateStatusMeja(p.getMeja().getNomor(), "tersedia");
 
     System.out.println("=== Transaksi selesai ===");
 

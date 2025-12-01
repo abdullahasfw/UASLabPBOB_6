@@ -1,12 +1,16 @@
 package akun;
 
+import javax.xml.crypto.Data;
+
 import pembayaran.Pembayaran;
 import sistem.RestaurantSystem;
 import transaksi.Pesanan;
+import database.DatabaseManager;
 
 public class Customer extends Akun {
     public Customer(int id, String nama, String password) {
         super(id, nama, password);
+      
     }
 
     public int getId() {
