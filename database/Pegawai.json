@@ -33,47 +33,5 @@
     "id": 301,
     "nama": "andi",
     "password": "kasir123"
-  },
-  {
-    "peran": "koki",
-    "isOnline": false,
-    "id": 101,
-    "nama": "budi",
-    "password": "koki123"
-  },
-  {
-    "peran": "pelayan",
-    "isOnline": false,
-    "id": 201,
-    "nama": "siti",
-    "password": "pelayan123"
-  },
-  {
-    "peran": "kasir",
-    "isOnline": false,
-    "id": 301,
-    "nama": "andi",
-    "password": "kasir123"
-  },
-  {
-    "peran": "koki",
-    "isOnline": false,
-    "id": 101,
-    "nama": "budi",
-    "password": "koki123"
-  },
-  {
-    "peran": "pelayan",
-    "isOnline": false,
-    "id": 201,
-    "nama": "siti",
-    "password": "pelayan123"
-  },
-  {
-    "peran": "kasir",
-    "isOnline": false,
-    "id": 301,
-    "nama": "andi",
-    "password": "kasir123"
   }
 ]

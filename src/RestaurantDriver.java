@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 import akun.*;
 import auth.Login;
 import menu.*;
@@ -56,11 +58,200 @@ public class RestaurantDriver {
         System.out.println("\n--- SIMULASI APLIKASI ---");
 
         Login login = new Login();
-        Object akun = login.login();
 
-        while (true){
-            
+            Object akun = login.login();
+                while (akun == null) {
+                    akun = login.login();
+                    if(akun != null){
+                        break;
+                    }
+                } 
+Scanner sc = new Scanner(System.in);
+
+// =====================================================
+// =============== MENU CUSTOMER =======================
+// =====================================================
+if (akun instanceof Customer) {
+    Customer c = (Customer) akun;
+
+    while (true) {
+        System.out.println("\n=== MENU CUSTOMER ===");
+        System.out.println("1. Lihat Menu");
+        System.out.println("2. Lihat Daftar Meja");
+        System.out.println("3. Mulai Pesanan");
+        System.out.println("4. Tambah Item ke Pesanan");
+        System.out.println("5. Konfirmasi Pesanan");
+        System.out.println("6. Lihat Pesanan Saya");
+        System.out.println("7. Bayar");
+        System.out.println("8. Logout");
+        System.out.println("0. Tutup Aplikasi");
+        System.out.print("Pilih: ");
+
+        int pilih = sc.nextInt();
+        sc.nextLine();
+
+        if (pilih == 0) break;
+
+        switch (pilih) {
+            case 1:
+                sistem.lihatMenu();
+                break;
+
+            case 2:
+                sistem.tampilkanDaftarMeja();
+                break;
+
+            case 3:
+                System.out.print("Nomor meja: ");
+                int no = sc.nextInt();
+                sc.nextLine();
+                Meja m = new Meja(no, "tersedia");
+                sistem.mulaiPesanan(c, m);
+                break;
+
+            case 4:
+                System.out.print("Nama menu: ");
+                String namaMenu = sc.nextLine();
+
+                System.out.print("Jumlah: ");
+                int jumlah = sc.nextInt();
+                sc.nextLine();
+
+                MenuItem item = null;
+
+                // cek di makanan
+                for (Makanan mk : DatabaseManager.load("MenuMakanan.json", Makanan.class)) {
+                    if (mk.getNama().equalsIgnoreCase(namaMenu))
+                        item = mk;
+                }
+
+                // cek di minuman
+                for (Minuman mn : DatabaseManager.load("MenuMinuman.json", Minuman.class)) {
+                    if (mn.getNama().equalsIgnoreCase(namaMenu))
+                        item = mn;
+                }
+
+                if (item == null) {
+                    System.out.println("Menu tidak ditemukan!");
+                } else {
+                    System.out.print("Catatan (optional): ");
+                    String catatan = sc.nextLine();
+                    sistem.tambahItemKePesanan(c, item, jumlah, catatan);
+                }
+                break;
+
+            case 5:
+                sistem.konfirmasiPesanan(c);
+                break;
+
+            case 6:
+                sistem.tampilkanPesananCS(c);
+                break;
+
+            case 7:
+                System.out.println("Metode bayar:");
+                System.out.println("1. Cash");
+                System.out.println("2. Kartu");
+                System.out.print("Pilih: ");
+                int bay = sc.nextInt();
+
+                Pembayaran metode = null;
+                if (bay == 1) metode = new CashPayment(c.getId());
+                else {
+                    System.out.print("Masukkan nomor kartu: ");
+                    int kartu = sc.nextInt();
+                    metode = new CardPayment(c.getId(), kartu);
+                }
+
+                sistem.prosesTransaksi(c, metode);
+                break;
+
+            case 8:
+                akun = null;
+                while (akun == null) {
+                    akun = login.login();
+                    if(akun != null){
+                        break;
+                    }
+                } 
+                if (!(akun instanceof Customer)) {
+                    break;
+                }
+                c = (Customer) akun;
+                break;
+
+            default:
+                System.out.println("Pilihan tidak valid.");
         }
+    }
+}
+
+// =====================================================
+// =============== MENU KOKI ===========================
+// =====================================================
+else if (akun instanceof Koki) {
+    Koki k = (Koki) akun;
+
+    while (true) {
+        System.out.println("\n=== MENU KOKI ===");
+        System.out.println("1. Proses antrian dapur");
+        System.out.println("0. Logout");
+        System.out.print("Pilih: ");
+
+        int pilih = sc.nextInt();
+
+        if (pilih == 0) break;
+
+        if (pilih == 1) {
+            sistem.prosesDapur();
+        }
+    }
+}
+
+// =====================================================
+// =============== MENU PELAYAN ========================
+// =====================================================
+else if (akun instanceof Pelayan) {
+    Pelayan p = (Pelayan) akun;
+
+    while (true) {
+        System.out.println("\n=== MENU PELAYAN ===");
+        System.out.println("1. Antar Pesanan");
+        System.out.println("0. Logout");
+        System.out.print("Pilih: ");
+
+        int pilih = sc.nextInt();
+
+        if (pilih == 0) break;
+
+        if (pilih == 1) {
+            sistem.prosesAntarPesanan();
+        }
+    }
+}
+
+// =====================================================
+// =============== MENU KASIR ==========================
+// =====================================================
+else if (akun instanceof Kasir) {
+    Kasir ks = (Kasir) akun;
+
+    while (true) {
+        System.out.println("\n=== MENU KASIR ===");
+        System.out.println("1. Lihat Semua Pesanan");
+        System.out.println("0. Logout");
+        System.out.print("Pilih: ");
+
+        int pilih = sc.nextInt();
+
+        if (pilih == 0) break;
+
+        if (pilih == 1) {
+            sistem.tampilkanSemuaPesanan();
+        }
+    }
+}
+
 
         
 

@@ -42,9 +42,8 @@ public static <T> void add(String fileName, Class<T> clazz, T newData) {
     List<T> data = load(fileName, clazz);
 
     try {
-        // ========== CASE 1: CUSTOMER / PEGAWAI (cek ID) ==========
-if (clazz.getSimpleName().equals("Customer") ||
-    clazz.getSimpleName().equals("Pegawai")) {
+        // ========== CASE 0: CUSTOMER / PEGAWAI (cek ID) ==========
+if (clazz.getSimpleName().equals("Customer") ) {
 
     Field idField = null;
     Class<?> current = clazz;
@@ -71,6 +70,43 @@ if (clazz.getSimpleName().equals("Customer") ||
         if (existingId == newId) {
             // System.out.println("GAGAL: ID " + newId + " sudah ada!");
             return;
+        }
+    }
+}
+
+// ========== CASE 1: KOKI / KASIR / PELAYAN (cek ID khusus per role) ==========
+if (clazz.getSimpleName().equals("Koki") ||
+    clazz.getSimpleName().equals("Kasir") ||
+    clazz.getSimpleName().equals("Pelayan")) {
+
+    Field idField = null;
+    Class<?> current = clazz;
+
+    while (current != null) {
+        try {
+            idField = current.getDeclaredField("id");
+            idField.setAccessible(true);
+            break;
+        } catch (NoSuchFieldException e) {
+            current = current.getSuperclass();
+        }
+    }
+
+    if (idField == null) {
+        System.out.println("ERROR: Field 'id' tidak ditemukan pada class " + clazz.getSimpleName());
+    }
+
+    int newId = idField.getInt(newData);
+
+    for (T obj : data) {
+        // hanya cek objek dengan kelas yang sama (Koki dgn Koki saja)
+        if (obj.getClass().equals(clazz)) {
+
+            int existingId = idField.getInt(obj);
+            if (existingId == newId) {
+                // System.out.println("GAGAL: ID " + newId + " sudah ada pada " + clazz.getSimpleName());
+                return;
+            }
         }
     }
 }
