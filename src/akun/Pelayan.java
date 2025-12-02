@@ -3,11 +3,10 @@ import sistem.RestaurantSystem;
 import transaksi.Pesanan;
 
 public class Pelayan extends Pegawai {
-    String peran;
     
     public Pelayan(int id, String nama, String password, String peran) {
-        super(id, nama, password);
-        this.peran = peran;
+        super(id, nama, password, peran);
+       
     }
     
     public void antarPesanan(Pesanan p) {

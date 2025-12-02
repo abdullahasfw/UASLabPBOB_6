@@ -5,11 +5,10 @@ import transaksi.Pesanan;
 
 
 public class Koki extends Pegawai{
-    private String peran;
 
     public Koki(int id, String nama, String password, String peran) {
-        super(id, nama, password);
-        this.peran = peran;
+        super(id, nama, password, peran);
+        
     }
     
     public void mulaiMasak(Pesanan p) {

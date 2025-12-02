@@ -34,9 +34,9 @@ public class RestaurantSystem {
     pelayan = new Pelayan(201, "siti","pelayan123", "pelayan");
     kasir = new Kasir(301, "andi","kasir123", "kasir");
 
-    DatabaseManager.add("Pegawai.json", Koki.class, koki);
-    DatabaseManager.add("Pegawai.json", Pelayan.class, pelayan);
-    DatabaseManager.add("Pegawai.json", Kasir.class, kasir);
+    DatabaseManager.add("Koki.json", Koki.class, koki);
+    DatabaseManager.add("Pelayan.json", Pelayan.class, pelayan);
+    DatabaseManager.add("Kasir.json", Kasir.class, kasir);
     }
 
     // Method ini sesuai dengan diagram UML: +lihatMenu()
@@ -210,21 +210,21 @@ public void tampilkanSemuaPesanan() {
 
 
     public void konfirmasiPesanan(Customer customer) {
-    // 1. Ambil pesanan
     Pesanan p = pesananAktif.get(customer.getId());
-    antrianDapur.add(p);
 
     if (p == null) {
-        System.out.println("Tidak ada pesanan untuk dikonfirmasi.");
+        System.out.println("Tidak ada pesanan!");
         return;
     }
 
-    // // 2. Simpan ke Database (File JSON)
-    // DatabaseManager.add("DataPesanan.json", Pesanan.class, p);
+    p.setStatus("menunggu dapur");     
 
-     System.out.println("Pesanan berhasil dikonfirmasi dan masuk ke dapur!");
 
-     }
+    antrianDapur.add(p);
+
+    System.out.println("Pesanan masuk antrian dapur.");
+    }
+
 
      public void prosesDapur() {
         if (antrianDapur.isEmpty()) {

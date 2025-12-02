@@ -26,6 +26,30 @@ public class DatabaseManager {
         }
     }
 
+     /**
+     * Method untuk load data sebagai List<Map> (raw JSON)
+     * Berguna ketika kita perlu membaca data tanpa mengetahui tipe spesifik
+     */
+    public static List<Map<String, Object>> loadRaw(String filename) {
+        try {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<Map<String, Object>>>(){}.getType();
+            
+            FileReader reader = new FileReader(filename);
+            List<Map<String, Object>> data = gson.fromJson(reader, type);
+            reader.close();
+            
+            return data != null ? data : new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    
+    /**
+     * Method untuk convert Object ke Map (untuk menyimpan class name)
+     */
+
     public static <T> List<T> load(String fileName, Class<T> clazz) {
         File file = new File(DB_FOLDER + "/" + fileName);
         if (!file.exists()) return new ArrayList<>();

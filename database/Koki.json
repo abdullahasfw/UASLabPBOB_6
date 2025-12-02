@@ -1,0 +1,16 @@
+[
+  {
+    "isOnline": false,
+    "peran": "koki",
+    "id": 102,
+    "nama": "fathur",
+    "password": "fathur123"
+  },
+  {
+    "isOnline": false,
+    "peran": "koki",
+    "id": 101,
+    "nama": "budi",
+    "password": "koki123"
+  }
+]

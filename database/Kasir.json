@@ -1,0 +1,16 @@
+[
+  {
+    "isOnline": false,
+    "peran": "kasir",
+    "id": 302,
+    "nama": "syifa",
+    "password": "syifa123"
+  },
+  {
+    "isOnline": false,
+    "peran": "kasir",
+    "id": 301,
+    "nama": "andi",
+    "password": "kasir123"
+  }
+]

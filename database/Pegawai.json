@@ -33,5 +33,26 @@
     "id": 301,
     "nama": "andi",
     "password": "kasir123"
+  },
+  {
+    "peran": "koki",
+    "isOnline": false,
+    "id": 102,
+    "nama": "fathur",
+    "password": "koki123"
+  },
+  {
+    "peran": "kasir",
+    "isOnline": false,
+    "id": 302,
+    "nama": "syifa",
+    "password": "syifa123"
+  },
+  {
+    "peran": "pelayan",
+    "isOnline": false,
+    "id": 202,
+    "nama": "abdul",
+    "password": "pelayan123"
   }
 ]

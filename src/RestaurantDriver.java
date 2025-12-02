@@ -41,6 +41,15 @@ public class RestaurantDriver {
         Customer coba1 = new Customer(2, "syifa", "123");
         DatabaseManager.add("Customer.json", akun.Customer.class, coba1);
 
+        Koki koki = new Koki(102, "fathur", "fathur123", "koki");
+        DatabaseManager.add("Koki.json", akun.Koki.class, koki);
+
+        Kasir kasir = new Kasir(302, "syifa", "syifa123", "kasir");
+        DatabaseManager.add("Kasir.json", akun.Kasir.class, kasir);
+
+        Pelayan pelayan = new Pelayan (202, "abdul", "abdul123", "pelayan");
+        DatabaseManager.add("Pelayan.json", akun.Pelayan.class, pelayan);
+
         Meja meja1 = new Meja (1, "tersedia");
         DatabaseManager.add("Meja.json", transaksi.Meja.class, meja1);
 
@@ -58,25 +67,28 @@ public class RestaurantDriver {
         System.out.flush();
 
         System.out.println("\n--- SIMULASI APLIKASI ---");
-
+        Scanner sc = new Scanner(System.in);
         Login login = new Login();
 
+        boolean t = true;
+
+             while (t) {
+            // Login
             Object akun = login.login();
-                while (akun == null) {
-                    akun = login.login();
-                    if(akun != null){
-                        break;
-                    }
-                } 
-Scanner sc = new Scanner(System.in);
+            while (akun == null) {
+                akun = login.login();
+                if (akun != null) break;
+            }
+
 
 // =====================================================
 // =============== MENU CUSTOMER =======================
 // =====================================================
 if (akun instanceof Customer) {
     Customer c = (Customer) akun;
+    boolean logout = false;
 
-    while (true) {
+    while (!logout) {
         System.out.println("\n=== MENU CUSTOMER ===");
         System.out.println("1. Lihat Menu");
         System.out.println("2. Lihat Daftar Meja");
@@ -90,7 +102,10 @@ if (akun instanceof Customer) {
         int pilih = sc.nextInt();
         sc.nextLine();
 
-        if (pilih == 0) break;
+        if (pilih == 0) {
+            t = false;
+            break;
+        };
 
         switch (pilih) {
             case 1:
@@ -103,33 +118,31 @@ if (akun instanceof Customer) {
                 
 case 3:
 
-    System.out.println("\n=== DAFTAR MEJA ===");
-    sistem.tampilkanDaftarMeja();
-
-    System.out.print("Nomor meja: ");
-    int no = sc.nextInt();
-    sc.nextLine();
-
+    
     // Ambil semua meja dari database
-    List<Meja> daftarMeja = DatabaseManager.load("Meja.json", Meja.class);
+    List<Meja> semuaMeja = DatabaseManager.load("Meja.json", Meja.class);
 
-    Meja mejaDipilih = null;
-    for (Meja mj : daftarMeja) {
-        if (mj.getNomor() == no) {
-            mejaDipilih = mj;
-            break;
-        }
-    }
+System.out.println("Daftar Meja:");
+for (Meja m : semuaMeja) {
+    System.out.println(m.getNomor() + ". " + m.getStatus());
+}
 
-    if (mejaDipilih == null) {
-        System.out.println(" Nomor meja tidak valid!");
+System.out.print("Pilih nomor meja: ");
+int pilihmeja = sc.nextInt();
+
+Meja mejaDipilih = null;
+for (Meja m : semuaMeja) {
+    if (m.getNomor() == pilihmeja) {
+        mejaDipilih = m;
         break;
     }
+}
 
-    if (!mejaDipilih.getStatus().equalsIgnoreCase("tersedia")) {
-        System.out.println(" Meja sudah ditempati!");
-        break;
-    }
+if (mejaDipilih == null) {
+    System.out.println("Meja tidak ditemukan!");
+    return;
+}
+
 
     // Mulai Pesanan
     sistem.mulaiPesanan(c, mejaDipilih);
@@ -236,32 +249,20 @@ case 3:
 
 
             case 6:
-                akun = null;
-                while (akun == null) {
-                    akun = login.login();
-                    if(akun != null){
-                        break;
-                    }
-                } 
-                if (!(akun instanceof Customer)) {
-                    break;
-                }
-                c = (Customer) akun;
-                break;
-
-            default:
-                System.out.println("Pilihan tidak valid.");
+               logout = true; // keluar dari loop Customer
         }
-    }
-}
+        
+    }}
+
 
 // =====================================================
 // =============== MENU KOKI ===========================
 // =====================================================
 else if (akun instanceof Koki) {
     Koki k = (Koki) akun;
+    boolean logout = false;
 
-    while (true) {
+    while (!logout) {
         System.out.println("\n=== MENU KOKI ===");
         System.out.println("1. Proses antrian dapur");
         System.out.println("0. Logout");
@@ -269,7 +270,9 @@ else if (akun instanceof Koki) {
 
         int pilih = sc.nextInt();
 
-        if (pilih == 0) break;
+        if (pilih == 0) {
+             logout = true; // keluar dari loop
+        };
 
         if (pilih == 1) {
             sistem.prosesDapur();
@@ -282,8 +285,9 @@ else if (akun instanceof Koki) {
 // =====================================================
 else if (akun instanceof Pelayan) {
     Pelayan p = (Pelayan) akun;
+    boolean logout = false;
 
-    while (true) {
+    while (!logout) {
         System.out.println("\n=== MENU PELAYAN ===");
         System.out.println("1. Antar Pesanan");
         System.out.println("0. Logout");
@@ -303,9 +307,12 @@ else if (akun instanceof Pelayan) {
 // =============== MENU KASIR ==========================
 // =====================================================
 else if (akun instanceof Kasir) {
+    System.out.println("masok");
+    
     Kasir ks = (Kasir) akun;
+    boolean logout = false;
 
-    while (true) {
+    while (!logout) {
         System.out.println("\n=== MENU KASIR ===");
         System.out.println("1. Lihat Semua Pesanan");
         System.out.println("0. Logout");
@@ -313,7 +320,9 @@ else if (akun instanceof Kasir) {
 
         int pilih = sc.nextInt();
 
-        if (pilih == 0) break;
+        if (pilih == 0) {
+            logout = true; // keluar dari loop
+        };
 
         if (pilih == 1) {
             sistem.tampilkanSemuaPesanan();
@@ -355,5 +364,7 @@ else if (akun instanceof Kasir) {
         // sistem.prosesTransaksi(coba1, metode2);
 
 
-    }
+    
+}
+}
 }
