@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"akun"},{"l":"All Packages","url":"allpackages-index.html"}]
+packageSearchIndex = [{"l":"akun"},{"l":"All Packages","url":"allpackages-index.html"},{"l":"auth"},{"l":"database"},{"l":"menu"},{"l":"pembayaran"},{"l":"sistem"},{"l":"transaksi"}]
