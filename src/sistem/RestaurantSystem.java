@@ -2,7 +2,7 @@ package sistem;
 
 import menu.*;
 import pembayaran.Pembayaran;
-import akun.*;  
+import akun.*;
 import transaksi.*;
 import database.DatabaseManager;
 
@@ -13,40 +13,60 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-
+/**
+ * Sistem utama yang mengatur seluruh alur operasional restoran, mulai dari
+ * pengelolaan pesanan, antrian dapur, pengantaran, hingga transaksi.
+ * 
+ * Kelas ini menghubungkan berbagai komponen seperti Customer, Pegawai,
+ * pembayaran, menu, dan database.
+ */
 public class RestaurantSystem {
+
+    /** Menyimpan semua pesanan aktif dengan key = ID Customer */
     private Map<Integer, Pesanan> pesananAktif = new HashMap<>();
+    /** Counter otomatis untuk ID pesanan */
     private int idPesananCounter = 0;
+    /** Antrian pesanan yang menunggu untuk dimasak */
     private Queue<Pesanan> antrianDapur = new LinkedList<>();
+    /** Antrian pesanan yang siap diantar pelayan */
     private Queue<Pesanan> antrianSiapAntar = new LinkedList<>();
+    /** Antrian pesanan yang menunggu pembayaran */
     private Queue<Pesanan> antrianTransaksi = new LinkedList<>();
+    /** Daftar pegawai dan customer yang terdaftar di sistem */
     public static List<Pegawai> pegawaiList = new ArrayList<>();
     public static List<Customer> customerList = new ArrayList<>();
 
+    /** Objek pegawai khusus peran: koki, pelayan, dan kasir */
     private Koki koki;
     private Pelayan pelayan;
     private Kasir kasir;
 
-
+    /**
+     * Konstruktor utama RestaurantSystem.
+     * Menginisialisasi pegawai default dan menyimpannya ke database.
+     */
     public RestaurantSystem() {
 
-    koki = new Koki(101, "budi","koki123", "koki");
-    pelayan = new Pelayan(201, "siti","pelayan123", "pelayan");
-    kasir = new Kasir(301, "andi","kasir123", "kasir");
+        koki = new Koki(101, "budi", "koki123", "koki");
+        pelayan = new Pelayan(201, "siti", "pelayan123", "pelayan");
+        kasir = new Kasir(301, "andi", "kasir123", "kasir");
 
-    DatabaseManager.add("Koki.json", Koki.class, koki);
-    DatabaseManager.add("Pelayan.json", Pelayan.class, pelayan);
-    DatabaseManager.add("Kasir.json", Kasir.class, kasir);
+        DatabaseManager.add("Koki.json", Koki.class, koki);
+        DatabaseManager.add("Pelayan.json", Pelayan.class, pelayan);
+        DatabaseManager.add("Kasir.json", Kasir.class, kasir);
     }
 
-    // Method ini sesuai dengan diagram UML: +lihatMenu()
+    /**
+     * Menampilkan seluruh menu makanan dan minuman
+     * dengan memuat data dari database.
+     */
     public void lihatMenu() {
         System.out.println("========================================");
         System.out.println("          DAFTAR MENU RESTORAN          ");
         System.out.println("========================================");
 
         // --- BAGIAN 1: LOAD MAKANAN ---
-        // Menggunakan method .load() milik DatabaseManager 
+        // Menggunakan method .load() milik DatabaseManager
         List<Makanan> daftarMakanan = DatabaseManager.load("MenuMakanan.json", Makanan.class);
 
         System.out.println("\n--- [ MAKANAN ] ---");
@@ -72,12 +92,13 @@ public class RestaurantSystem {
             }
         }
 
-        
-
         System.out.println("\n========================================");
     }
 
-     public void tampilkanDaftarMeja() {
+    /**
+     * Menampilkan seluruh daftar meja beserta statusnya.
+     */
+    public void tampilkanDaftarMeja() {
 
         System.out.println("========================================");
         System.out.println("          DAFTAR MEJA RESTORAN          ");
@@ -87,15 +108,26 @@ public class RestaurantSystem {
         System.out.println("Daftar Meja:");
 
         for (Meja m : semuaMeja) {
-        System.out.println("Meja #" + m.getNomor() + " - Status: " + m.getStatus());
-        System.out.println("=========================================");
-       }
-}
-
-    private int generateIdPesanan() {
-    return idPesananCounter++;
+            System.out.println("Meja #" + m.getNomor() + " - Status: " + m.getStatus());
+            System.out.println("=========================================");
+        }
     }
 
+    /**
+     * Menghasilkan ID pesanan baru secara otomatis.
+     * 
+     * @return ID pesanan baru
+     */
+    private int generateIdPesanan() {
+        return idPesananCounter++;
+    }
+
+    /**
+     * Memulai pesanan baru untuk customer tertentu pada meja tertentu.
+     *
+     * @param customer customer yang memesan
+     * @param meja     meja yang dipilih
+     */
     public void mulaiPesanan(Customer customer, Meja meja) {
 
         if (pesananAktif.containsKey(customer.getId())) {
@@ -104,23 +136,23 @@ public class RestaurantSystem {
         }
 
         List<Meja> semuaMeja = DatabaseManager.load("Meja.json", Meja.class);
-    Meja mejaDariDB = null;
-    for (Meja m : semuaMeja) {
-        if (m.getNomor() == meja.getNomor()) {
-            mejaDariDB = m;
-            break;
+        Meja mejaDariDB = null;
+        for (Meja m : semuaMeja) {
+            if (m.getNomor() == meja.getNomor()) {
+                mejaDariDB = m;
+                break;
+            }
         }
-    }
 
-    if (mejaDariDB == null) {
-        System.out.println("Meja tidak ditemukan di database!");
-        return;
-    }
+        if (mejaDariDB == null) {
+            System.out.println("Meja tidak ditemukan di database!");
+            return;
+        }
 
-    if (mejaDariDB.getStatus().equalsIgnoreCase("Terisi")) {
-        System.out.println("Meja #" + mejaDariDB.getNomor() + " sudah terisi. Gagal memulai pesanan.");
-        return;
-    }
+        if (mejaDariDB.getStatus().equalsIgnoreCase("Terisi")) {
+            System.out.println("Meja #" + mejaDariDB.getNomor() + " sudah terisi. Gagal memulai pesanan.");
+            return;
+        }
 
         Pesanan baru = new Pesanan(generateIdPesanan(), meja, "dipesan", customer.getNama());
         pesananAktif.put(customer.getId(), baru);
@@ -131,12 +163,20 @@ public class RestaurantSystem {
 
         if (statusUpdated) {
             // Update status objek 'meja' di memori
-            meja.setStatus("Terisi"); 
+            meja.setStatus("Terisi");
         } else {
             System.err.println("PERINGATAN: Gagal memperbarui status Meja #" + meja.getNomor() + " di database.");
         }
     }
 
+    /**
+     * Menambahkan item menu ke pesanan customer.
+     *
+     * @param customer customer yang memesan
+     * @param item     item menu yang ingin ditambahkan
+     * @param jumlah   berapa banyak item
+     * @param catatan  catatan tambahan
+     */
     public void tambahItemKePesanan(Customer customer, MenuItem item, int jumlah, String catatan) {
 
         Pesanan p = pesananAktif.get(customer.getId());
@@ -153,150 +193,175 @@ public class RestaurantSystem {
                 + customer.getNama());
     }
 
-
+    /**
+     * Menampilkan pesanan lengkap milik customer tertentu.
+     *
+     * @param customer customer yang ingin melihat pesanan
+     */
     public void tampilkanPesananCS(Customer customer) {
 
-    Pesanan p = pesananAktif.get(customer.getId());
+        Pesanan p = pesananAktif.get(customer.getId());
 
-    if (p == null) {
-        System.out.println("Customer belum memiliki pesanan!");
-        return;
-    }
+        if (p == null) {
+            System.out.println("Customer belum memiliki pesanan!");
+            return;
+        }
 
-    System.out.println("=== Daftar Pesanan Customer: " + customer.getNama() + " ===");
+        System.out.println("=== Daftar Pesanan Customer: " + customer.getNama() + " ===");
 
-    List<DetailPesanan> itemList = p.getDaftarItem();
+        List<DetailPesanan> itemList = p.getDaftarItem();
 
-    if (itemList.isEmpty()) {
-        System.out.println("Belum ada item yang dipesan.");
-        return;
-    }
-
-    int i = 1;
-    for (DetailPesanan dp : itemList) {
-        System.out.println(i++ + ". " + dp.getItem().getNama()
-            + " | Jumlah: " + dp.getJumlah()
-            + " | Catatan: " + dp.getCatatan()
-            + " | Subtotal: " + dp.getSubTotal()
-        );
-    }
-    System.out.println("status pesanan:  " + p.getStatus());
-    System.out.println("Total Harga: " + p.getTotalHarga());
-}
-
-public void tampilkanSemuaPesanan() {
-    if (pesananAktif.isEmpty()) {
-        System.out.println("Belum ada pesanan aktif.");
-        return;
-    }
-
-    System.out.println("\n=== SEMUA PESANAN AKTIF ===");
-
-    for (Map.Entry<Integer, Pesanan> entry : pesananAktif.entrySet()) {
-        Pesanan p = entry.getValue();
-        System.out.println("\nCustomer ID: " + entry.getKey());
-        System.out.println("Meja: #" + p.getMeja().getNomor());
-        System.out.println("Item:");
+        if (itemList.isEmpty()) {
+            System.out.println("Belum ada item yang dipesan.");
+            return;
+        }
 
         int i = 1;
-        for (DetailPesanan dp : p.getDaftarItem()) {
-            System.out.println(" " + (i++) + ". " 
-                + dp.getItem().getNama()
-                + " x" + dp.getJumlah());
+        for (DetailPesanan dp : itemList) {
+            System.out.println(i++ + ". " + dp.getItem().getNama()
+                    + " | Jumlah: " + dp.getJumlah()
+                    + " | Catatan: " + dp.getCatatan()
+                    + " | Subtotal: " + dp.getSubTotal());
         }
-        System.out.println("\n  Total Harga: " + p.getTotalHarga());
+        System.out.println("status pesanan:  " + p.getStatus());
+        System.out.println("Total Harga: " + p.getTotalHarga());
     }
-}
 
+    /**
+     * Menampilkan seluruh pesanan aktif yang sedang berlangsung.
+     */
+    public void tampilkanSemuaPesanan() {
+        if (pesananAktif.isEmpty()) {
+            System.out.println("Belum ada pesanan aktif.");
+            return;
+        }
 
+        System.out.println("\n=== SEMUA PESANAN AKTIF ===");
+
+        for (Map.Entry<Integer, Pesanan> entry : pesananAktif.entrySet()) {
+            Pesanan p = entry.getValue();
+            System.out.println("\nCustomer ID: " + entry.getKey());
+            System.out.println("Meja: #" + p.getMeja().getNomor());
+            System.out.println("Item:");
+
+            int i = 1;
+            for (DetailPesanan dp : p.getDaftarItem()) {
+                System.out.println(" " + (i++) + ". "
+                        + dp.getItem().getNama()
+                        + " x" + dp.getJumlah());
+            }
+            System.out.println("\n  Total Harga: " + p.getTotalHarga());
+        }
+    }
+
+    /**
+     * Customer mengonfirmasi pesanan sehingga masuk antrian dapur.
+     *
+     * @param customer customer yang mengonfirmasi
+     */
     public void konfirmasiPesanan(Customer customer) {
-    Pesanan p = pesananAktif.get(customer.getId());
+        Pesanan p = pesananAktif.get(customer.getId());
 
-    if (p == null) {
-        System.out.println("Tidak ada pesanan!");
-        return;
+        if (p == null) {
+            System.out.println("Tidak ada pesanan!");
+            return;
+        }
+
+        p.setStatus("menunggu dapur");
+
+        antrianDapur.add(p);
+
+        System.out.println("Pesanan masuk antrian dapur.");
     }
 
-    p.setStatus("menunggu dapur");     
-
-
-    antrianDapur.add(p);
-
-    System.out.println("Pesanan masuk antrian dapur.");
-    }
-
-
-     public void prosesDapur() {
+    /**
+     * Memproses seluruh pesanan yang ada di antrian dapur.
+     * Koki memasak dan memindahkan ke antrian pengantaran.
+     */
+    public void prosesDapur() {
         if (antrianDapur.isEmpty()) {
             System.out.println("Tidak ada pesanan untuk dimasak.");
             return;
         }
 
-         while (!antrianDapur.isEmpty()) {
-        Pesanan p = antrianDapur.poll();   // ambil satu pesanan dari queue
+        while (!antrianDapur.isEmpty()) {
+            Pesanan p = antrianDapur.poll(); // ambil satu pesanan dari queue
 
-        koki.mulaiMasak(p);
-        System.out.println(
-            "Pesanan #" + p.getIdPesanan() +
-            " atas nama: " + p.getCustomerName() + " " +
-            p.getStatus()
-        );
+            koki.mulaiMasak(p);
+            System.out.println(
+                    "Pesanan #" + p.getIdPesanan() +
+                            " atas nama: " + p.getCustomerName() + " " +
+                            p.getStatus());
 
-        koki.selesaiMasak(p);
-        System.out.println(
-            "Pesanan #" + p.getIdPesanan() +
-            " atas nama: " + p.getCustomerName() + " " +
-             p.getStatus()
-        );
+            koki.selesaiMasak(p);
+            System.out.println(
+                    "Pesanan #" + p.getIdPesanan() +
+                            " atas nama: " + p.getCustomerName() + " " +
+                            p.getStatus());
 
-        antrianSiapAntar.add(p);
-        System.out.println(
-            "Pesanan #" + p.getIdPesanan() +
-            " masuk ke antrian pelayan untuk diantar.");
-    }
+            antrianSiapAntar.add(p);
+            System.out.println(
+                    "Pesanan #" + p.getIdPesanan() +
+                            " masuk ke antrian pelayan untuk diantar.");
+        }
 
         System.out.println("Semua pesanan dalam antrian dapur telah diproses.");
     }
 
+    /**
+     * Memproses seluruh pesanan yang siap diantar oleh pelayan.
+     * Memindahkan pesanan ke antrian transaksi.
+     */
     public void prosesAntarPesanan() {
-    if (antrianSiapAntar.isEmpty()) {
-        System.out.println("Tidak ada pesanan yang siap diantar.");
-        return;
+        if (antrianSiapAntar.isEmpty()) {
+            System.out.println("Tidak ada pesanan yang siap diantar.");
+            return;
+        }
+
+        while (!antrianSiapAntar.isEmpty()) {
+            Pesanan p = antrianSiapAntar.poll();
+
+            pelayan.antarPesanan(p); // pakai method pelayan
+            antrianTransaksi.add(p);
+        }
+
     }
 
-    while (!antrianSiapAntar.isEmpty()) {
-        Pesanan p = antrianSiapAntar.poll();
-
-        pelayan.antarPesanan(p);  // pakai method pelayan
-        antrianTransaksi.add(p);
-    }
-
-  }
-
+    /**
+     * Melakukan proses transaksi setelah pesanan diantar.
+     *
+     * @param c      customer yang melakukan pembayaran
+     * @param metode metode pembayaran yang digunakan
+     * @return objek Transaksi yang sudah selesai
+     */
     public Transaksi prosesTransaksi(Customer c, Pembayaran metode) {
-    Pesanan p = pesananAktif.get(c.getId());
+        Pesanan p = pesananAktif.get(c.getId());
 
-    if (p == null) {
-        System.out.println("Customer tidak memiliki pesanan.");
-        return null;
+        if (p == null) {
+            System.out.println("Customer tidak memiliki pesanan.");
+            return null;
+        }
+
+        Transaksi t = kasir.prosesPembayaran(p, c, metode);
+
+        // Hapus dari pesanan aktif
+        pesananAktif.remove(c.getId());
+
+        updateStatusMeja(p.getMeja().getNomor(), "tersedia");
+
+        System.out.println("=== Transaksi selesai ===");
+
+        return t;
     }
 
-   Transaksi t = kasir.prosesPembayaran(p, c, metode);
-
-    // Hapus dari pesanan aktif
-    pesananAktif.remove(c.getId());
-
-    updateStatusMeja(p.getMeja().getNomor(), "tersedia");
-
-    System.out.println("=== Transaksi selesai ===");
-
-    return t;
-}
-
-
-
-
-     public boolean updateStatusMeja(int nomorMeja, String statusBaru) {
+    /**
+     * Mengupdate status meja di database (tersedia/terisi).
+     *
+     * @param nomorMeja  nomor meja yang diubah
+     * @param statusBaru status baru meja
+     * @return true jika berhasil, false jika gagal
+     */
+    public boolean updateStatusMeja(int nomorMeja, String statusBaru) {
         // 1. Load semua data meja dari file JSON
         List<transaksi.Meja> semuaMeja = DatabaseManager.load("Meja.json", transaksi.Meja.class);
         boolean mejaDitemukan = false;
@@ -312,7 +377,7 @@ public void tampilkanSemuaPesanan() {
                 // 3. Ubah status meja
                 m.setStatus(statusBaru); // Memerlukan method setStatus(String) di kelas Meja
                 mejaDitemukan = true;
-                break; 
+                break;
             }
         }
 
@@ -321,8 +386,8 @@ public void tampilkanSemuaPesanan() {
             DatabaseManager.save("Meja.json", semuaMeja);
             return true;
         } else {
-         System.out.println("Meja dengan nomor " + nomorMeja + " tidak ditemukan.");
+            System.out.println("Meja dengan nomor " + nomorMeja + " tidak ditemukan.");
             return false;
         }
     }
-} 
+}

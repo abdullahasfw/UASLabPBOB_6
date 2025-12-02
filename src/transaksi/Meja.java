@@ -7,11 +7,11 @@ package transaksi;
 public class Meja {
     private int nomor;
     private String status;
-    
+
     /**
      * Konstruktor untuk membuat objek Meja dengan nomor dan status tertentu.
      *
-     * @param nomor nomor meja
+     * @param nomor  nomor meja
      * @param status status meja (misalnya: "tersedia", "dipakai")
      */
     public Meja(int nomor, String status) {
@@ -39,7 +39,7 @@ public class Meja {
     }
 
     /**
-     * Mengambil status meja saat ini.
+     * Mengambil status meja.
      *
      * @return status meja
      */
@@ -47,7 +47,7 @@ public class Meja {
         return status;
     }
 
-     /**
+    /**
      * Mengambil nomor meja.
      *
      * @return nomor meja

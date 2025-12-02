@@ -24,12 +24,13 @@ public class Login {
      * dari pengguna melalui input konsol. Data pengguna kemudian
      * diverifikasi berdasarkan file JSON masing-masing tipe akun.
      *
-     * <p>Urutan pengecekan:
+     * <p>
+     * Urutan pengecekan:
      * <ol>
-     *     <li>Customer</li>
-     *     <li>Koki</li>
-     *     <li>Kasir</li>
-     *     <li>Pelayan</li>
+     * <li>Customer</li>
+     * <li>Koki</li>
+     * <li>Kasir</li>
+     * <li>Pelayan</li>
      * </ol>
      *
      * @return Objek akun yang berhasil login (Customer, Koki, Kasir, atau Pelayan),
