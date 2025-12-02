@@ -8,7 +8,33 @@ import akun.Koki;
 import akun.Pelayan;
 import database.DatabaseManager;
 
+/**
+ * Kelas {@code Login} menangani proses autentikasi pengguna
+ * berdasarkan username dan password. Sistem akan memeriksa
+ * setiap kategori pengguna (Customer, Koki, Kasir, Pelayan)
+ * dengan membaca data dari file JSON melalui {@link DatabaseManager}.
+ * <p>
+ * Jika kecocokan ditemukan, metode ini akan mengembalikan objek
+ * pengguna yang berhasil login. Jika tidak, metode mengembalikan {@code null}.
+ */
 public class Login {
+
+    /**
+     * Melakukan proses login dengan meminta username dan password
+     * dari pengguna melalui input konsol. Data pengguna kemudian
+     * diverifikasi berdasarkan file JSON masing-masing tipe akun.
+     *
+     * <p>Urutan pengecekan:
+     * <ol>
+     *     <li>Customer</li>
+     *     <li>Koki</li>
+     *     <li>Kasir</li>
+     *     <li>Pelayan</li>
+     * </ol>
+     *
+     * @return Objek akun yang berhasil login (Customer, Koki, Kasir, atau Pelayan),
+     *         atau {@code null} jika login gagal.
+     */
     public Object login() {
         Scanner sc = new Scanner(System.in);
 
